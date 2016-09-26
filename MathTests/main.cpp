@@ -5,7 +5,7 @@
 
 int main()
 {
-	// Testing Tests!
+	printf("Testing doNothing\n");
 	assert(doNothing( 0) == 5);
 	assert(doNothing(-1) == 4);
 	assert(doNothing( 1) == 8);
@@ -21,9 +21,14 @@ int main()
 
 	assert(quad(1, -2, 0).left_root  == 0);
 	assert(quad(1, -2, 0).right_root == 2);
+	assert(quad(1, 0, 0).left_root == quad(1, 0, 0).right_root);
 
-	assert(quad(1, 0, 0).left_root
-						== quad(1, 0, 0).right_root);
+	// Testing Linear Interpolation
+	assert(lerp(0,  1,  0)  ==  0);
+	assert(lerp(0,  1,  1)  ==  1);
+	assert(lerp(0,  1, -1)  == -1);
+	assert(lerp(1, -1, .5f) ==  0);
+	
 	return 0;
 }
 
