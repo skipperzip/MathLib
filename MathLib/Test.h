@@ -22,14 +22,17 @@ float lerp(float start, float end, float t);
 
 // problem c.
 struct Point { float x, y; };
-float distance(Point P1, Point P2);
-float distance(float x1, float y1, float x2, float y2);
+float distance(const Point &P1, const Point &P2);
 
 // problem d.
 struct Point3D { float x, y, z; };
-float inner(Point3D P1, Point3D P2);
-float inner(float x1, float y1, float z1,
-				float x2, float y2, float z2);
+float inner(const Point3D &P1, const Point3D &P2);
+
+struct Plane { Point3D abc; float d; };
+float point_plane_distance(const Plane &pl, const Point3D &pt);
+
+Point3D bezier(float t, const Point3D &p1, const Point3D &p2,
+						const Point3D &p3, const Point3D &p4);
 
 // problem e.
 // Point-Plane Distance....

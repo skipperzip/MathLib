@@ -29,6 +29,25 @@ int main()
 	assert(lerp(0,  1, -1)  == -1);
 	assert(lerp(1, -1, .5f) ==  0);
 	
+	// Testing Distance formula
+	assert(distance({ 0, 0}, { 0,0 }) == 0);
+	assert(distance({ 0, 0}, { 5,0 }) == 5);
+	assert(distance({ 0,-5}, { 0,0 }) == 5);
+	assert(distance({ 3,0 }, { 0,4 }) == 5);
+
+	// Inner Product
+	assert(inner({ 1,1,0 }, {-1,1,0 }) == 0);
+	assert(inner({ 1,1,1 }, { 1,1,1 }) == 3);
+
+	// Point-Plane Distance
+	assert(point_plane_distance({ 0,0,1,0 }, { 0,0,0 }) == 0);
+	assert(point_plane_distance({ 0,0,1,0 }, { 0,0,1 }) == 1);
+
+	// Bezier
+	assert(bezier(  0,  { 0,0,0 }, { 1,0,0 }, { 2,0,0 }, { 3,0,0 }).x == 0);
+	assert(bezier(  1,  { 0,0,0 }, { 1,0,0 }, { 2,0,0 }, { 3,0,0 }).x == 3);
+	assert(bezier(0.5f, { 0,0,0 }, { 1,0,0 }, { 2,0,0 }, { 3,0,0 }).x == 1.5);
+
 	return 0;
 }
 
