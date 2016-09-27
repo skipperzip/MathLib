@@ -42,3 +42,6 @@ vec2 perp(const vec2 &v);
 // Find the angle of the vector (2D only!)
 // atan2f(y,x)
 float angle(const vec2 &v);
+
+// vec2{cos(a), sin(a)};
+vec2 fromAngle(float a);
