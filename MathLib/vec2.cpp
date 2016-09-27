@@ -1,4 +1,5 @@
 #include "vec2.h"
+#include "flops.h"
 
 vec2 operator+(const vec2 & lhs, const vec2 & rhs)
 {
@@ -12,12 +13,7 @@ vec2 & operator+=(vec2 & lhs, const vec2 & rhs)
 
 bool operator==(const vec2 & lhs, const vec2 & rhs)
 {
-	return lhs.x == rhs.x && lhs.y == rhs.y;
+	return fequals(lhs.x, rhs.x)
+					&& fequals(lhs.y, rhs.y);
+	// return lhs.x == rhs.x && lhs.y == rhs.y;
 }
-
-
-bool operator==(const vec2 & lhs, const vec2 & rhs)
-{
-	return lhs.x == rhs.x && lhs.y == rhs.y;
-}
-s
