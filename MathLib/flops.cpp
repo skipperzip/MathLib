@@ -7,5 +7,5 @@
 // enough to be considered the same.
 bool fequals(float lhs, float rhs)
 {
-	return fabsf(lhs-rhs) <= 0.000001f;
+	return fabsf(lhs-rhs) <= 0.00001f;
 }
