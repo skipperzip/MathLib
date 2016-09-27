@@ -38,6 +38,9 @@ int main()
 	assert((cross(vec3{ 1,0,0 }, vec3{ 0,1,0 })
 									== vec3{0,0,1}));
 
+	// reversing the operands will give me the back-facing vector.
+	assert((cross(vec3{ 0,1,0 }, vec3{ 1,0,0 })
+									== vec3{ 0,0,-1 }));
 	return 0;
 }
 
