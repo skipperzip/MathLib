@@ -45,3 +45,6 @@ float angle(const vec2 &v);
 
 // vec2{cos(a), sin(a)};
 vec2 fromAngle(float a);
+//{
+//	return vec2{cos(a), sin(a)};
+//}
