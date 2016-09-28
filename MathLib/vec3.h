@@ -25,15 +25,14 @@ float magnitude(const vec3 &v);
 
 // Reduce vector's length to 1
 // v/magnitude(v)
-vec2 normal(const vec3 &v);
-
+vec3 normal(const vec3 &v);
 // Scalar Projection : width of the right angle between two vectors
 // x1*x2 + y1*y2 + z1*z2
 float dot(const vec3 &lhs, const vec3 &rhs);
 
 // Find the angle between two vectors
 // acos(dot(normal(v1), normal(v2)))
-float angleBetween(const vec3 &lhs, const vec2 &rhs);
+float angleBetween(const vec3 &lhs, const vec3 &rhs);
 
 
 // Find a vector perpendicular to the plane created by two vectors
