@@ -87,15 +87,27 @@ float quadBezier(float start, float mid, float end, float alpha)
 
 float hermiteSpline(float start, float s_tan, float end, float e_tan, float alpha)
 {
-	return 0;
+	float tsq = alpha*alpha;
+	float tcub = tsq*alpha;
+
+	float h00 = 2 * tcub - 3 * tsq + 1;
+	float h01 = -2 * tcub + 3 * tsq;
+	float h10 = tcub - 2 * tsq + alpha;
+	float h11 = tcub - tsq;
+
+	return  h00 * start + h10 * s_tan +
+			h01 * end   + h11 * e_tan;
 }
 
 float cardinalSpline(float start, float mid, float end, float tightness, float alpha)
 {
-	return 0;
+	float s_tan = (mid-start) * tightness,
+		  e_tan = (end-mid) * tightness;
+
+	return hermiteSpline(start, s_tan, end, e_tan, alpha);
 }
 
 float catRomSpline(float start, float mid, float end, float alpha)
 {
-	return 0;
+	return cardinalSpline(start,mid,end, 0.5f, alpha);
 }
