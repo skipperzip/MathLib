@@ -33,7 +33,8 @@ float hermiteSpline(float start, float s_tan,
 float cardinalSpline(float start, float mid,
 						float end, float tightness, float alpha);
 
-float catRomSpline(float start, float mid, float end);
+float catRomSpline(float start, float mid, float end, float alpha);
+	// cardinalSpline(start, mid, end, .5, alpha);
 
 /*******************
  Implement the above functions based upon the slides.
