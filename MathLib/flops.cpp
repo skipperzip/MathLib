@@ -70,18 +70,10 @@ float parabFlip(float x)
 
 
 ////// Linear Blending
-// Interpolation / Extrapolation / Mixing
 
-// if alpha is 0, we want to return the start
-// if alpha is 1, we want to return the end
 float lerp(float start, float end, float alpha)
 {
-	// avoids some issues with floating point error
 	return (1-alpha)*start + (alpha)*end;
-
-	// slope intercept form, where alpha is x
-	// y = m*x + b
-	// return alpha*(end - start) + start;
 }
 
 float quadBezier(float start, float mid, float end, float alpha)
@@ -91,4 +83,19 @@ float quadBezier(float start, float mid, float end, float alpha)
 			lerp(start, mid, alpha),
 			lerp(mid,   end, alpha),
 		alpha);
+}
+
+float hermiteSpline(float start, float s_tan, float end, float e_tan, float alpha)
+{
+	return 0;
+}
+
+float cardinalSpline(float start, float mid, float end, float tightness, float alpha)
+{
+	return 0;
+}
+
+float catRomSpline(float start, float mid, float end, float alpha)
+{
+	return 0;
 }
