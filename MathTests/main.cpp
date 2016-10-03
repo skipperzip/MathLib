@@ -43,6 +43,15 @@ int main()
 
 	// reversing the operands will give me the back-facing vector.
 //	assert( (cross(vec3{ 0,1,0 }, vec3{ 1,0,0 }) == vec3{ 0,0,-1 }) );
+
+
+	assert(fequals(lerp(.23, 124, 0), .23));
+	assert(fequals(lerp(.23, 124, 1), 124));
+
+	assert(fequals(quadBezier(15, 40, 21, 0), 15));
+	assert(fequals(quadBezier(15, 40, 21, 1), 21));
+
+
 	return 0;
 }
 

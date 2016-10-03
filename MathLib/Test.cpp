@@ -42,7 +42,7 @@ quad_results quad(float a, float b, float c)
 // return out_roots;
 //}
 
-float lerp(float start, float end, float t)
+float ilerp(float start, float end, float t)
 {
 	return start + t * (end - start);
 }

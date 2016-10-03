@@ -3,29 +3,30 @@
 #include "flops.h"
 #include "Transform.h"
 
-
 void main()
 {
-	sfw::initContext(800,800);
-
+	float W = 1200, H = 1200;
+	sfw::initContext(W, H);
+	float steps = 100;
 	while (sfw::stepContext())
 	{
-		for (int i = 0; i < 100; ++i)
+		// i is the number lines we draw.
+		for (int i = 0; i < steps; ++i)
 		{
-			float x1 = i / 100.f;// 0-1 range.
-			float y1 = linearHalf(x1);
+			float x1 = i / steps;// 0-1 range.
+			// i+1 is the next point!
+			float x2 = (i + 1) / steps;
+			// call the function for both points.
+			float y1 = quadBezier(.5f, 0, 1, x1);
+			float y2 = quadBezier(.5f, 0, 1, x2);
 
-			float x2 = (i + 1) / 100.f;			
-			float y2 = linearHalf(x2);
+			x1 *= W;
+			y1 *= H;
+			x2 *= W;
+			y2 *= H;
 
-			x1 *= 800;
-			x2 *= 800;
-			y1 *= 800;
-			y2 *= 800;
-
-			sfw::drawLine(x1,y1,x2,y2);
+			sfw::drawLine(x1,y1, x2,y2);
 		}
 	}
-
 	sfw::termContext();
 }
