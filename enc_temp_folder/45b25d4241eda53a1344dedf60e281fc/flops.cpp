@@ -24,11 +24,3 @@ float linearHalf(float x)
 {
 	return 0.5f*x;
 }
-
-// a. is probably something like a quadratic.
-// b. is probably something like the rev quadratic.
-
-
-//c.
-// when x 0-0.5 : y = 0 - 1,
-// when x 0.5-1 : y = 1 - 0
