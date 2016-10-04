@@ -8,24 +8,33 @@ void main()
 	float W = 1200, H = 1200;
 	sfw::initContext(W, H);
 	float steps = 100;
+
+	vec2 start = { 200, 300 },
+		end = { 900, 800 },
+		mid = { 0, 1100};
+
 	while (sfw::stepContext())
 	{
+		sfw::drawCircle(start.x,start.y,12);
+		sfw::drawCircle(mid.x, mid.y, 12);
+		sfw::drawCircle(end.x, end.y, 12);
+
+		if (sfw::getKey('S')) mid.y -= sfw::getDeltaTime() * 100;
+		if (sfw::getKey('W')) mid.y += sfw::getDeltaTime() * 100;
+		if (sfw::getKey('A')) mid.x -= sfw::getDeltaTime() * 100;
+		if (sfw::getKey('D')) mid.x += sfw::getDeltaTime() * 100;
+
+
 		// i is the number lines we draw.
 		for (int i = 0; i < steps; ++i)
 		{
-			float x1 = i / steps;// 0-1 range.
-			// i+1 is the next point!
-			float x2 = (i + 1) / steps;
-			// call the function for both points.
-			float y1 = quadBezier(.5f, 0, 1, x1);
-			float y2 = quadBezier(.5f, 0, 1, x2);
+			float t1 = i / steps;
+			float t2 = (i + 1) / steps;
 
-			x1 *= W;
-			y1 *= H;
-			x2 *= W;
-			y2 *= H;
+			vec2 v1 = quadBezier(start, mid, end, t1);
+			vec2 v2 = quadBezier(start, mid, end, t2);
 
-			sfw::drawLine(x1,y1, x2,y2);
+			sfw::drawLine(v1.x,v1.y, v2.x,v2.y);
 		}
 	}
 	sfw::termContext();

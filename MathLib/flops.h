@@ -27,6 +27,10 @@ float lerp(float start, float end, float alpha);
 
 float quadBezier(float start, float mid, float end, float alpha);
 
+// Challenge, extra exercise....
+float cubicBezier(float start, float mid1, 
+							float mid2, float end, float alpha);
+
 float hermiteSpline(float start, float s_tan,
 							float end, float e_tan, float alpha);
 
