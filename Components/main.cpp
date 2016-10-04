@@ -3,6 +3,7 @@
 #include "flops.h"
 #include "Transform.h"
 #include "Rigidbody.h"
+#include "SpaceshipLocomotion.h"
 
 void main()
 {
@@ -19,18 +20,20 @@ void main()
 
 	Rigidbody playerRigidbody;
 
+	SpaceshipLocomotion playerLoco;
+
 	while (sfw::stepContext())
 	{
 		float deltaTime = sfw::getDeltaTime();
 
 		// Change the rigidbody's velocity according to input
-		if (sfw::getKey('W')) playerRigidbody.acceleration.y += 10.0f;
-		if (sfw::getKey('S')) playerRigidbody.acceleration.y -= 10.0f;
-		if (sfw::getKey('A')) playerRigidbody.acceleration.x -= 10.0f;
-		if (sfw::getKey('D')) playerRigidbody.acceleration.x += 10.0f;
+		//if (sfw::getKey('W')) playerRigidbody.acceleration.y += 10.0f;
+		//if (sfw::getKey('S')) playerRigidbody.acceleration.y -= 10.0f;
+		//if (sfw::getKey('A')) playerRigidbody.acceleration.x -= 10.0f;
+		//if (sfw::getKey('D')) playerRigidbody.acceleration.x += 10.0f;
 
-		if (sfw::getKey('Q')) playerRigidbody.angularAcceleration += 1.0f;
-		if (sfw::getKey('E')) playerRigidbody.angularAcceleration -= 1.0f;
+		//if (sfw::getKey('Q')) playerRigidbody.angularAcceleration += 1.0f;
+		//if (sfw::getKey('E')) playerRigidbody.angularAcceleration -= 1.0f;
 
 		// Wrap the player's position within the screen bounds
 		if (playerTransform.position.x > SCREEN_WIDTH)
@@ -44,6 +47,7 @@ void main()
 			playerTransform.position.y = SCREEN_HEIGHT;
 
 		// Apply rigidbody forces
+		playerLoco.update(playerRigidbody, deltaTime);
 		playerRigidbody.integrate(playerTransform, deltaTime);
 		
 		// Draw the player
