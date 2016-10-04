@@ -15,5 +15,10 @@ public:
 	vec2 acceleration;			// represents the change in velocity
 	float angularAcceleration;	// represents the change in ang vel
 
+	void addForce(const vec2 &force);
+	void addImpulse(const vec2 &impulse);
+
+	void addTorque(float torque);
+
 	void integrate(Transform &trans, float deltaTime);	// performs integration :)
 };
