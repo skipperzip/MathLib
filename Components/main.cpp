@@ -15,18 +15,33 @@ void main()
 		mid = { 0, 1100}; 
 
 	Transform playerTransform(200,200);
+	playerTransform.scale = { 5,5 };
+
 	Rigidbody playerRigidbody;
-	playerRigidbody.velocity = vec2{ 0,0 };
 
 	while (sfw::stepContext())
 	{
 		float deltaTime = sfw::getDeltaTime();
 
 		// Change the rigidbody's velocity according to input
-		if (sfw::getKey('W')) playerRigidbody.velocity.y += 10.0f;
-		if (sfw::getKey('S')) playerRigidbody.velocity.y -= 10.0f;
-		if (sfw::getKey('A')) playerRigidbody.velocity.x -= 10.0f;
-		if (sfw::getKey('D')) playerRigidbody.velocity.x += 10.0f;
+		if (sfw::getKey('W')) playerRigidbody.acceleration.y += 10.0f;
+		if (sfw::getKey('S')) playerRigidbody.acceleration.y -= 10.0f;
+		if (sfw::getKey('A')) playerRigidbody.acceleration.x -= 10.0f;
+		if (sfw::getKey('D')) playerRigidbody.acceleration.x += 10.0f;
+
+		if (sfw::getKey('Q')) playerRigidbody.angularAcceleration += 1.0f;
+		if (sfw::getKey('E')) playerRigidbody.angularAcceleration -= 1.0f;
+
+		// Wrap the player's position within the screen bounds
+		if (playerTransform.position.x > SCREEN_WIDTH)
+			playerTransform.position.x = 0.0f;
+		else if (playerTransform.position.x < 0.0f)
+			playerTransform = SCREEN_WIDTH;
+
+		if (playerTransform.position.y > SCREEN_HEIGHT)
+			playerTransform.position.y = 0.0f;
+		else if (playerTransform.position.y < 0.0f)
+			playerTransform.position.y = SCREEN_HEIGHT;
 
 		// Apply rigidbody forces
 		playerRigidbody.integrate(playerTransform, deltaTime);

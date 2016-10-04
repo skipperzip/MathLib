@@ -13,7 +13,7 @@ Transform::Transform(float x, float y,
 	facing = a;
 }
 
-vec2 Transform::getDirection()
+vec2 Transform::getDirection() const
 {
 	return fromAngle(facing);
 }
@@ -23,7 +23,7 @@ void Transform::setDirection(const vec2 &dir)
 	facing = angle(dir);
 }
 
-void Transform::debugDraw()
+void Transform::debugDraw() const
 {
 	sfw::drawCircle(position.x,
 					position.y, 12,12, 0x888888FF);
