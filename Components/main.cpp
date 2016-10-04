@@ -2,40 +2,37 @@
 #include "vec2.h"
 #include "flops.h"
 #include "Transform.h"
+#include "Rigidbody.h"
 
 void main()
 {
-	float W = 1200, H = 1200;
-	sfw::initContext(W, H);
+	float SCREEN_WIDTH = 400, SCREEN_HEIGHT = 400;
+	sfw::initContext(SCREEN_WIDTH, SCREEN_HEIGHT);
 	float steps = 100;
 
 	vec2 start = { 200, 300 },
 		end = { 900, 800 },
-		mid = { 0, 1100};
+		mid = { 0, 1100}; 
+
+	Transform playerTransform(200,200);
+	Rigidbody playerRigidbody;
+	playerRigidbody.velocity = vec2{ 0,0 };
 
 	while (sfw::stepContext())
 	{
-		sfw::drawCircle(start.x,start.y,12);
-		sfw::drawCircle(mid.x, mid.y, 12);
-		sfw::drawCircle(end.x, end.y, 12);
+		float deltaTime = sfw::getDeltaTime();
 
-		if (sfw::getKey('S')) mid.y -= sfw::getDeltaTime() * 100;
-		if (sfw::getKey('W')) mid.y += sfw::getDeltaTime() * 100;
-		if (sfw::getKey('A')) mid.x -= sfw::getDeltaTime() * 100;
-		if (sfw::getKey('D')) mid.x += sfw::getDeltaTime() * 100;
+		// Change the rigidbody's velocity according to input
+		if (sfw::getKey('W')) playerRigidbody.velocity.y += 10.0f;
+		if (sfw::getKey('S')) playerRigidbody.velocity.y -= 10.0f;
+		if (sfw::getKey('A')) playerRigidbody.velocity.x -= 10.0f;
+		if (sfw::getKey('D')) playerRigidbody.velocity.x += 10.0f;
 
-
-		// i is the number lines we draw.
-		for (int i = 0; i < steps; ++i)
-		{
-			float t1 = i / steps;
-			float t2 = (i + 1) / steps;
-
-			vec2 v1 = quadBezier(start, mid, end, t1);
-			vec2 v2 = quadBezier(start, mid, end, t2);
-
-			sfw::drawLine(v1.x,v1.y, v2.x,v2.y);
-		}
+		// Apply rigidbody forces
+		playerRigidbody.integrate(playerTransform, deltaTime);
+		
+		// Draw the player
+		playerTransform.debugDraw();
 	}
 	sfw::termContext();
 }

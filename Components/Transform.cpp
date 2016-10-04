@@ -1,6 +1,18 @@
 #include "Transform.h"
 #include "sfwdraw.h"
 
+Transform::Transform(float x, float y,
+	float w, float h, float a)
+{
+	position.x = x;
+	position.y = y;
+
+	scale.x = w;
+	scale.y = h;
+
+	facing = a;
+}
+
 vec2 Transform::getDirection()
 {
 	return fromAngle(facing);
