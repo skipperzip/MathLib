@@ -26,7 +26,7 @@ void SpaceshipLocomotion::doStop(float value)
 void SpaceshipLocomotion::update(const Transform &trans,
 										Rigidbody &rigidbody)
 {
-	rigidbody.addForce(trans.getDirection() * speed * vertThrust);
+	rigidbody.addForce(trans.getUp() * speed * vertThrust);
 	rigidbody.addTorque(turnSpeed * horzThrust);
 	
 	rigidbody.addForce(-rigidbody.velocity * breakPower * stopAction);

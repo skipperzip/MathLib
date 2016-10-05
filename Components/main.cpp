@@ -32,7 +32,7 @@ void main()
 		if (playerTransform.position.x > SCREEN_WIDTH)
 			playerTransform.position.x = 0.0f;
 		else if (playerTransform.position.x < 0.0f)
-			playerTransform = SCREEN_WIDTH;
+			playerTransform.position.x = SCREEN_WIDTH;
 
 		if (playerTransform.position.y > SCREEN_HEIGHT)
 			playerTransform.position.y = 0.0f;
@@ -46,6 +46,7 @@ void main()
 		
 		// Draw the player
 		playerTransform.debugDraw();
+		playerRigidbody.debugDraw(playerTransform);
 	}
 	sfw::termContext();
 }
