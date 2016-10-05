@@ -16,13 +16,14 @@ void main()
 		end = { 900, 800 },
 		mid = { 0, 1100}; 
 
-	Transform playerTransform(200,200);
-	playerTransform.scale = { 24,24 };
 
+	Transform playerTransform(200, 200);
 	Rigidbody playerRigidbody;
-
 	SpaceshipController playerCtrl;
 	SpaceshipLocomotion playerLoco;
+
+	playerTransform.scale = { 24,24 };
+
 
 	while (sfw::stepContext())
 	{
