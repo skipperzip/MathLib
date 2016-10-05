@@ -8,7 +8,7 @@
 
 void main()
 {
-	float SCREEN_WIDTH = 400, SCREEN_HEIGHT = 400;
+	float SCREEN_WIDTH = 1200, SCREEN_HEIGHT = 1200;
 	sfw::initContext(SCREEN_WIDTH, SCREEN_HEIGHT);
 	float steps = 100;
 
@@ -17,7 +17,7 @@ void main()
 		mid = { 0, 1100}; 
 
 	Transform playerTransform(200,200);
-	playerTransform.scale = { 5,5 };
+	playerTransform.scale = { 24,24 };
 
 	Rigidbody playerRigidbody;
 
@@ -41,7 +41,7 @@ void main()
 
 		// Apply rigidbody forces
 		playerCtrl.update(playerLoco);
-		playerLoco.update(playerRigidbody, deltaTime);
+		playerLoco.update(playerTransform, playerRigidbody);
 		playerRigidbody.integrate(playerTransform, deltaTime);
 		
 		// Draw the player
