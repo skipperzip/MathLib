@@ -9,7 +9,10 @@ SpaceshipLocomotion::SpaceshipLocomotion()
 	stopAction = 0.0f;
 	breakPower = 4.0f;
 
+	// Angles per second
 	turnSpeed = 4.0f;
+
+	// Pixels per second
 	speed = 900.0f;
 	maxSpeed = 1000.0f;
 }
