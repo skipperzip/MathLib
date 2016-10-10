@@ -6,16 +6,18 @@
 #include "vec3.h"
 #include "flops.h"
 
+#include "mat2.h"
+
 
 int main()
 {
 	assert(fequals(0, 0.000001));
 	//////////////////////////////////////
 	// Vector Tests
-	
+
 	// if the vector only extends in one axis, then it's
 	// magnitude will be the extent within that axis!
-	assert(fequals(magnitude(vec2{5,0}),5));
+	assert(fequals(magnitude(vec2{ 5,0 }), 5));
 
 	// magnitude of the normal should be 1
 	vec2 N = normal(vec2{ 1,1 });
@@ -27,18 +29,18 @@ int main()
 	assert(fequals(dot(vec2{ 5,4 }, vec2{ 0,1 }), 4));
 
 	// Anglebetween the X-Axis should give us the angle of the vector.
-	assert(fequals(angleBetween(vec2{ 0,1 }, vec2{ 1,0 }), deg2rad(90)));	
+	assert(fequals(angleBetween(vec2{ 0,1 }, vec2{ 1,0 }), deg2rad(90)));
 	assert(fequals(angleBetween(vec2{ 1,1 }, vec2{ 0,1 }), deg2rad(45)));
 	assert(fequals(angleBetween(vec2{ 1,1 }, vec2{ 0,1 }), angle(vec2{ 1,1 })));
 
 	// Angle of 0 should be the X-Axis
-	assert((fromAngle(0) == vec2{1,0}));
+	assert((fromAngle(0) == vec2{ 1,0 }));
 	assert((fromAngle(deg2rad(90)) == vec2{ 0,1 }));
-	assert((fromAngle(deg2rad(45))) == normal(vec2{1,1}));
+	assert((fromAngle(deg2rad(45))) == normal(vec2{ 1,1 }));
 
-	 //Testing cross product
-		 //Ensure that the Z-axis results from
-		 //crossing the X-axis and Y-Axis
+	//Testing cross product
+		//Ensure that the Z-axis results from
+		//crossing the X-axis and Y-Axis
 //	assert((cross(vec3{ 1,0,0 }, vec3{ 0,1,0 }) == vec3{0,0,1}));
 
 	// reversing the operands will give me the back-facing vector.
@@ -59,7 +61,29 @@ int main()
 
 	assert(fequals(catRomSpline(15, 40, 21, 0), 15));
 	assert(fequals(catRomSpline(15, 40, 21, 1), 21));
-	
+
+	/////////////////////////////////////////////////
+	/////////////// Matrix Tests
+
+	mat2 m0 = mat2{ 0,0,0,0 };
+	mat2 mI = mat2Identity();
+
+	assert(m0 == m0);
+	assert(mI * 2 == 2 * mI);
+	assert((mI * 2 == mat2{ 2,0,0,2 }));
+	assert(mI + m0 == mI);
+	assert(mI - mI == m0);
+	assert(mI*-1 == -mI);
+
+	assert(mI * mI == mI);
+	assert((mat2{1,2,3,4}) * mI == (mat2{ 1,2,3,4 }));
+
+
+
+	assert(transpose(mI) == mI);
+	assert(inverse(mI) == mI);
+
+
 	return 0;
 }
 
