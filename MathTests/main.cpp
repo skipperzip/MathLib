@@ -64,10 +64,23 @@ int main()
 
 	/////////////////////////////////////////////////
 	/////////////// Matrix Tests
-
+	/* Matrix multiplication--> think of each as variables
+		layout the result and perform the dot products of
+		rows and columns!
+	      b0 b2
+	      b1 b3
+	a0 a2 r0 r2 
+	a1 a3 r1 r3
+	
+	r0 = a0*b0 + a2*b1
+	r1 = a1*b0 + a3*b1
+	r2 = a0*b2 + a2*b3
+	r3 = a1*b2 + a3*b3
+	*/
 	mat2 m0 = mat2{ 0,0,0,0 };
 	mat2 mI = mat2Identity();
-
+	mat2 t0 = mat2{4,3,2,1};
+	vec2 v0 = vec2{1,0};
 	assert(m0 == m0);
 	assert(mI * 2 == 2 * mI);
 	assert((mI * 2 == mat2{ 2,0,0,2 }));
@@ -77,13 +90,14 @@ int main()
 
 	assert(mI * mI == mI);
 	assert((mat2{1,2,3,4}) * mI == (mat2{ 1,2,3,4 }));
-
-
+	
+	assert(mI * v0 == v0);
+	assert((t0 * v0 == vec2{4,2}));
 
 	assert(transpose(mI) == mI);
 	assert(inverse(mI) == mI);
 
-
+	assert(t0*inverse(t0) == mI);
 	return 0;
 }
 

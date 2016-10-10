@@ -2,7 +2,10 @@
 #include "vec2.h"
 
 /**
-For mat2 and mat3!!!!
+[ column 1 ][ column 2 ] Layout
+[...0][...1][...2][...3] array
+[ 0 0][ 0 1][ 1 0][ 1 1] 2d array
+[ 0  {x, y}][ 1  {x, y}] vectors
 **/
 
 union mat2
@@ -28,7 +31,7 @@ mat2 operator-(const mat2 &A);
 mat2 operator*(const mat2 &A, float s);
 mat2 operator*(float s, const mat2 &A);
 mat2 operator*(const mat2 &A, const mat2 &B);
-mat2 operator*(const mat2 &A, const vec2 &V);
+vec2 operator*(const mat2 &A, const vec2 &V);
 
 float determinant(const mat2 &A);
 mat2 inverse(const mat2 &A);
