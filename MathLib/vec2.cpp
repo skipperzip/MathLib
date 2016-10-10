@@ -120,3 +120,22 @@ vec2 catRomSpline(const vec2 & start, const vec2 & mid, const vec2 & end, float 
 	retval.y = catRomSpline(start.y, mid.y, end.y, alpha);
 	return retval;
 }
+
+float vec2::operator[](unsigned idx) const
+{
+	return v[idx];
+}
+
+float &vec2::operator[](unsigned idx)
+{
+	return v[idx];
+}
+
+/*
+vec2 d;
+
+d[0] == d.x == d.v[0];
+d[1] == d.y == d.v[1];
+
+d[0] = 4;
+*/
