@@ -2,10 +2,10 @@
 #include "vec2.h"
 
 /**
-[ column 1 ][ column 2 ] Layout
-[...0][...1][...2][...3] array
-[ 0 0][ 0 1][ 1 0][ 1 1] 2d array
-[ 0  {x, y}][ 1  {x, y}] vectors
+[ column 1 ] [ column 2 ] Layout
+[...0][...1] [...2][...3] array
+[ 0 0][ 0 1] [ 1 0][ 1 1] 2d array
+[ 0  {x, y}] [ 1  {x, y}] vectors
 **/
 
 union mat2

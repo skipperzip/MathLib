@@ -27,6 +27,9 @@
     <ClInclude Include="mat2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mat3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="vec2.cpp">
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mat2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mat3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,6 +7,7 @@
 #include "flops.h"
 
 #include "mat2.h"
+#include "mat3.h"
 
 
 int main()
@@ -98,6 +99,12 @@ int main()
 	assert(inverse(mI) == mI);
 
 	assert(t0*inverse(t0) == mI);
+
+	mat3 t03 = {};
+	mat3 mI3 = mat3Identity();
+
+	assert(mI3*inverse(mI3) == mI3);
+
 	return 0;
 }
 
