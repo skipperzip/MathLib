@@ -18,17 +18,20 @@ void main()
 
 
 	Transform playerTransform(200, 200);
-	//Transform ST2( 10, 0);
-	//Transform ST1(-10,0 );
+	Transform ST1(100, 0);
+	Transform ST2(100, 0);
+	Transform ST3(100, 0);
+	Transform ST4(100, 0);
 
+	ST1.m_parent = &playerTransform;
+	ST2.m_parent = &ST1;
+	ST3.m_parent = &ST2;
+	ST4.m_parent = &ST3;
 
 
 	Rigidbody playerRigidbody;
 	SpaceshipController playerCtrl;
 	SpaceshipLocomotion playerLoco;
-
-	playerTransform.m_scale = { 24, 48 };
-
 
 	while (sfw::stepContext())
 	{
@@ -54,8 +57,10 @@ void main()
 		playerTransform.debugDraw();
 		playerRigidbody.debugDraw(playerTransform);
 
-		//ST1.debugDraw(playerTransform.getLocalTransform());
-		//ST2.debugDraw(playerTransform.getLocalTransform());
+		ST1.debugDraw();
+		ST2.debugDraw();
+		ST3.debugDraw();
+		ST4.debugDraw();
 	}
 	sfw::termContext();
 }
