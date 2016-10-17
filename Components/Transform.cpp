@@ -35,7 +35,8 @@ mat3 Transform::getLocalTransform() const
 	mat3 S = scale(m_scale.x, m_scale.y);
 	mat3 R = rotate(m_facing);
 
-	return T * S * R;
+	// R * T;
+	return T * R * S;
 }
 
 void Transform::debugDraw(const mat3 &T) const

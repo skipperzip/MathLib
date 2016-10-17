@@ -27,7 +27,7 @@ void main()
 	SpaceshipController playerCtrl;
 	SpaceshipLocomotion playerLoco;
 
-	playerTransform.m_scale = { 24,24 };
+	playerTransform.m_scale = { 24, 48 };
 
 
 	while (sfw::stepContext())
