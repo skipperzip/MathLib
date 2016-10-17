@@ -64,7 +64,7 @@ mat3 operator+(const mat3 & A, const mat3 & B)
 
 mat3 operator-(const mat3 & A, const mat3 & B)
 {
-	A + -B;
+	return A + -B;
 }
 
 mat3 operator-(const mat3 & A)
@@ -91,20 +91,7 @@ mat3 operator*(float s, const mat3 & A)
 
 mat3 operator*(const mat3 & A, const mat3 & B)
 {
-	// rows of the first X columns of the second.
 	mat3 retval;
-
-	//retval.m[0] = A.m[0] * B.m[0] + A.m[3] * B.m[1] + A.m[6] * B.m[2];
-	//retval.m[1] = A.m[1] * B.m[0] + A.m[4] * B.m[1] + A.m[7] * B.m[2];
-	//retval.m[2] = A.m[2] * B.m[0] + A.m[5] * B.m[1] + A.m[8] * B.m[2];
-
-	//retval.m[0] = A.m[0] * B.m[3] + A.m[3] * B.m[4] + A.m[6] * B.m[5];
-	//retval.m[1] = A.m[1] * B.m[3] + A.m[4] * B.m[4] + A.m[7] * B.m[5];
-	//retval.m[2] = A.m[2] * B.m[3] + A.m[5] * B.m[4] + A.m[8] * B.m[5];
-
-	//retval.m[0] = A.m[0] * B.m[6] + A.m[3] * B.m[7] + A.m[6] * B.m[8];
-	//retval.m[1] = A.m[1] * B.m[6] + A.m[4] * B.m[7] + A.m[7] * B.m[8];
-	//retval.m[2] = A.m[2] * B.m[6] + A.m[5] * B.m[7] + A.m[8] * B.m[8];
 
 	mat3 At = transpose(A);
 
@@ -127,29 +114,13 @@ vec3 operator*(const mat3 & A, const vec3 & V)
 }
 
 
-/*
-	Long form.
-	Matrix Minors.
-	Triple Cross Product.
 
-	A * inverse(A) = Identity
-		9 variables in the inverse.
-
-
-	A/A = 1;
-*/
 float determinant(const mat3 & A)
 {
 	return dot(A[0], cross(A[1],A[2]));
 }
 
 
-// inverse by the
-// triple cross product
-
-// For working with cameras!
-// inverse(identity)*identity = identity
-// inverse(anyMatrix)*anyMatrix = identity
 mat3 inverse(const mat3 & A)
 {
 	mat3 retval;
@@ -160,4 +131,29 @@ mat3 inverse(const mat3 & A)
 
 	return 1 / determinant(A) *
 				transpose(retval);
+}
+
+mat3 scale(float w, float h)
+{
+	mat3 retval = mat3Identity();
+	retval[0][0] = w;
+	retval[1][1] = h;
+	return retval;
+}
+
+mat3 translate(float x, float y)
+{
+	mat3 retval = mat3Identity();
+	retval[2][0] = x;
+	retval[2][1] = y;
+	return retval;
+}
+
+mat3 rotate(float a)
+{
+	vec2 d = fromAngle(a);
+	mat3 retval = mat3Identity();
+	retval[0].xy = d;
+	retval[1].xy = -perp(d);
+	return retval;
 }

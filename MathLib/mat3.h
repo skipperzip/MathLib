@@ -34,3 +34,35 @@ vec3 operator*(const mat3 &A, const vec3 &V);
 
 float determinant(const mat3 &A);
 mat3 inverse(const mat3 &A);
+
+
+//	We're in a 2D space
+//	matrices are 3x3
+//	X-axis, Y-axis AND translation
+//	Dual-Quaternions
+
+
+mat3 scale(float w, float h);
+//mat3 scale(const vec2 &s);
+mat3 translate(float x, float y);
+mat3 rotate(float a);
+
+// "Affine" Transformations
+// Dual-Quaternions
+
+// x-axis = cos(a) sin(a) 0
+// y-axis = -sin(a) cos(a) 0
+/*
+      X   Y  T
+	[ c][-s][0] How much of the vector's x and y value ends up as the final x?
+	[ s][ c][0] 
+	[ 0][ 0][1]
+
+*/
+
+/*
+	1. DPS
+
+
+*/
+

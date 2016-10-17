@@ -26,9 +26,9 @@ void Rigidbody::addTorque(float a_torque)
 
 void Rigidbody::integrate(Transform &trans, float deltaTime)
 {
-	acceleration    = force / mass;
-	velocity       += acceleration * deltaTime + impulse / mass;
-	trans.position += velocity * deltaTime;
+	acceleration      = force / mass;
+	velocity         += acceleration * deltaTime + impulse / mass;
+	trans.m_position += velocity * deltaTime;
 	force = impulse = { 0,0 };
 
 	// Dampening Force
@@ -36,7 +36,7 @@ void Rigidbody::integrate(Transform &trans, float deltaTime)
 
 	angularAcceleration  = torque / mass;
 	angularVelocity     += angularAcceleration * deltaTime;
-	trans.facing        += angularVelocity * deltaTime;
+	trans.m_facing      += angularVelocity * deltaTime;
 
 	torque = 0;
 
@@ -45,7 +45,7 @@ void Rigidbody::integrate(Transform &trans, float deltaTime)
 
 void Rigidbody::debugDraw(const Transform & trans)
 {
-	vec2 p = trans.position;
+	vec2 p = trans.m_position;
 	vec2 v = p + velocity;
 	vec2 a = acceleration + p;
 

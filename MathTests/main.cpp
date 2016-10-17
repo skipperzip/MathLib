@@ -68,11 +68,11 @@ int main()
 	/* Matrix multiplication--> think of each as variables
 		layout the result and perform the dot products of
 		rows and columns!
-	      b0 b2
-	      b1 b3
-	a0 a2 r0 r2 
+		  b0 b2
+		  b1 b3
+	a0 a2 r0 r2
 	a1 a3 r1 r3
-	
+
 	r0 = a0*b0 + a2*b1
 	r1 = a1*b0 + a3*b1
 	r2 = a0*b2 + a2*b3
@@ -80,8 +80,8 @@ int main()
 	*/
 	mat2 m0 = mat2{ 0,0,0,0 };
 	mat2 mI = mat2Identity();
-	mat2 t0 = mat2{4,3,2,1};
-	vec2 v0 = vec2{1,0};
+	mat2 t0 = mat2{ 4,3,2,1 };
+	vec2 v0 = vec2{ 1,0 };
 	assert(m0 == m0);
 	assert(mI * 2 == 2 * mI);
 	assert((mI * 2 == mat2{ 2,0,0,2 }));
@@ -90,10 +90,10 @@ int main()
 	assert(mI*-1 == -mI);
 
 	assert(mI * mI == mI);
-	assert((mat2{1,2,3,4}) * mI == (mat2{ 1,2,3,4 }));
-	
+	assert((mat2{ 1,2,3,4 }) * mI == (mat2{ 1,2,3,4 }));
+
 	assert(mI * v0 == v0);
-	assert((t0 * v0 == vec2{4,2}));
+	assert((t0 * v0 == vec2{ 4,2 }));
 
 	assert(transpose(mI) == mI);
 	assert(inverse(mI) == mI);
@@ -105,6 +105,35 @@ int main()
 
 	assert(mI3*inverse(mI3) == mI3);
 
+
+
+	vec3 j = { 2,5,1 };
+
+	assert((scale(5, 1) * j == vec3{10,5,1}));
+
+	assert((rotate(deg2rad(90)) * j == vec3{ -5,2,1 }));
+
+	assert((translate(0, 3)*j == vec3{2,8,1}));
+
+	mat3 S = scale(2,1);
+	mat3 T = translate(4,3);
+	mat3 R = rotate(deg2rad(90));
+
+	mat3 RES = {0,-1,0, 2,0,0, 4,3,1};
+
+	bool r0 = (S*T*R == RES);
+	bool r1 = (S*R*T == RES);
+	bool r2 = (R*S*T == RES);
+	bool r3 = (R*T*S == RES);
+	bool r4 = (T*S*R == RES);
+	bool r5 = (T*R*S == RES);
+
+
+	/*
+		[ 0  2  4]
+		[-1  0  3]
+		[ 0  0  1]
+	*/
 	return 0;
 }
 

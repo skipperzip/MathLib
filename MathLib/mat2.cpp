@@ -91,12 +91,12 @@ mat2 mat2Identity() { return mat2 {1,0,0,1}; }
 
 vec2 mat2::operator[](unsigned idx) const
 {
-	return vec2();
+	return c[idx];
 }
 
 vec2 & mat2::operator[](unsigned idx)
 {
-	// TODO: insert return statement here
+	return c[idx];
 }
 
 float determinant(const mat2 & A)

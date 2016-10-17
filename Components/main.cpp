@@ -18,11 +18,14 @@ void main()
 
 
 	Transform playerTransform(200, 200);
+
+
+
 	Rigidbody playerRigidbody;
 	SpaceshipController playerCtrl;
 	SpaceshipLocomotion playerLoco;
 
-	playerTransform.scale = { 24,24 };
+	playerTransform.m_scale = { 24,24 };
 
 
 	while (sfw::stepContext())
@@ -30,15 +33,15 @@ void main()
 		float deltaTime = sfw::getDeltaTime();
 
 		// Wrap the player's position within the screen bounds
-		if (playerTransform.position.x > SCREEN_WIDTH)
-			playerTransform.position.x = 0.0f;
-		else if (playerTransform.position.x < 0.0f)
-			playerTransform.position.x = SCREEN_WIDTH;
+		if (playerTransform.m_position.x > SCREEN_WIDTH)
+			playerTransform.m_position.x = 0.0f;
+		else if (playerTransform.m_position.x < 0.0f)
+			playerTransform.m_position.x = SCREEN_WIDTH;
 
-		if (playerTransform.position.y > SCREEN_HEIGHT)
-			playerTransform.position.y = 0.0f;
-		else if (playerTransform.position.y < 0.0f)
-			playerTransform.position.y = SCREEN_HEIGHT;
+		if (playerTransform.m_position.y > SCREEN_HEIGHT)
+			playerTransform.m_position.y = 0.0f;
+		else if (playerTransform.m_position.y < 0.0f)
+			playerTransform.m_position.y = SCREEN_HEIGHT;
 
 		// Apply rigidbody forces
 		playerCtrl.update(playerLoco);
