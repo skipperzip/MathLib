@@ -101,10 +101,10 @@ vec2 & mat2::operator[](unsigned idx)
 
 float determinant(const mat2 & A)
 {
-	return 0.0f;
+	return A.m[0] * A.m[3] - A.m[1] * A.m[2];
 }
 
 mat2 inverse(const mat2 & A)
 {
-	return mat2();
+	return 1 / determinant(A) * mat2 {A.m[3],-A.m[1], -A.m[2], A.m[0]};
 }

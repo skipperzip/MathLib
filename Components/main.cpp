@@ -18,6 +18,8 @@ void main()
 
 
 	Transform playerTransform(200, 200);
+	Transform ST2( 10, 0);
+	Transform ST1(-10,0 );
 
 
 
@@ -51,6 +53,9 @@ void main()
 		// Draw the player
 		playerTransform.debugDraw();
 		playerRigidbody.debugDraw(playerTransform);
+
+		ST1.debugDraw(playerTransform.getLocalTransform());
+		ST2.debugDraw(playerTransform.getLocalTransform());
 	}
 	sfw::termContext();
 }

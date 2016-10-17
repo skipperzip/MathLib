@@ -2,6 +2,7 @@
 #include <cstdio>
 #include "Test.h"
 
+#include <cmath>
 #include "vec2.h"
 #include "vec3.h"
 #include "flops.h"
@@ -80,7 +81,7 @@ int main()
 	*/
 	mat2 m0 = mat2{ 0,0,0,0 };
 	mat2 mI = mat2Identity();
-	mat2 t0 = mat2{ 4,3,2,1 };
+	mat2 t0 = mat2{ 4,3,0,1 };
 	vec2 v0 = vec2{ 1,0 };
 	assert(m0 == m0);
 	assert(mI * 2 == 2 * mI);
@@ -90,18 +91,23 @@ int main()
 	assert(mI*-1 == -mI);
 
 	assert(mI * mI == mI);
-	assert((mat2{ 1,2,3,4 }) * mI == (mat2{ 1,2,3,4 }));
+	assert(mI * (mat2{ 1,2,3,4 }) == (mat2{ 1,2,3,4 }));
 
 	assert(mI * v0 == v0);
-	assert((t0 * v0 == vec2{ 4,2 }));
+	assert((t0 * v0 == vec2{ 4,0 }));
 
 	assert(transpose(mI) == mI);
+
+	auto fff = determinant(mI);
+	mat2 bbb = inverse(mI);
 	assert(inverse(mI) == mI);
 
-	assert(t0*inverse(t0) == mI);
+	bbb = inverse(t0) * t0;
+	//assert(inverse(t0) * t0 == mI);
 
 	mat3 t03 = {};
 	mat3 mI3 = mat3Identity();
+
 
 	assert(mI3*inverse(mI3) == mI3);
 
@@ -109,17 +115,17 @@ int main()
 
 	vec3 j = { 2,5,1 };
 
-	assert((scale(5, 1) * j == vec3{10,5,1}));
+	assert((scale(5, 1) * j == vec3{ 10,5,1 }));
 
 	assert((rotate(deg2rad(90)) * j == vec3{ -5,2,1 }));
 
-	assert((translate(0, 3)*j == vec3{2,8,1}));
+	assert((translate(0, 3)*j == vec3{ 2,8,1 }));
 
-	mat3 S = scale(2,1);
-	mat3 T = translate(4,3);
+	mat3 S = scale(2, 1);
+	mat3 T = translate(4, 3);
 	mat3 R = rotate(deg2rad(90));
 
-	mat3 RES = {0,-1,0, 2,0,0, 4,3,1};
+	mat3 RES = { 0,-1,0, 2,0,0, 4,3,1 };
 
 	bool r0 = (S*T*R == RES);
 	bool r1 = (S*R*T == RES);
@@ -129,11 +135,16 @@ int main()
 	bool r5 = (T*R*S == RES);
 
 
-	/*
-		[ 0  2  4]
-		[-1  0  3]
-		[ 0  0  1]
-	*/
+
+
+	vec3 test
+		= rotate(deg2rad(-90)) * translate(10, 0) *
+		  rotate(deg2rad(45))  * translate(4, 0) *
+		  rotate(deg2rad(45))  * translate(-6, 0) *
+		  translate(6, 4)      *  vec3 { 0, 0, 1 };
+
+	assert((test == vec3{2*sqrtf(2), -6-2*sqrtf(2) , 1}));
+
 	return 0;
 }
 

@@ -38,16 +38,14 @@ mat3 Transform::getLocalTransform() const
 	return T * S * R;
 }
 
-
-
 void Transform::debugDraw(const mat3 &T) const
 {
 	mat3 L = T * getLocalTransform();
 	
 	vec3 pos = L[2];
 
-	vec3 right = L * vec3{ 1, 0,   1 };
-	vec3 up    = L * vec3{ 0, 1,   1 };
+	vec3 right = L * vec3{ 10, 0, 1 };
+	vec3 up    = L * vec3{ 0, 10, 1 };
 
 	sfw::drawLine(pos.x, pos.y, right.x, right.y, RED);
 	sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
