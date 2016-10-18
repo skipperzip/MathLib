@@ -6,6 +6,8 @@
 #include "SpaceshipLocomotion.h"
 #include "SpaceshipController.h"
 
+#include "PlanetaryMotor.h"
+
 void main()
 {
 	float SCREEN_WIDTH = 1200, SCREEN_HEIGHT = 1200;
@@ -27,11 +29,21 @@ void main()
 	ST2.m_parent = &ST1;
 	ST3.m_parent = &ST2;
 	ST4.m_parent = &ST3;
-
+	
 
 	Rigidbody playerRigidbody;
 	SpaceshipController playerCtrl;
 	SpaceshipLocomotion playerLoco;
+
+	Transform sunTransform;
+	sunTransform.m_position = vec2{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
+	Rigidbody sunRbody;
+	PlanetaryMotor sunMotor;
+	sunMotor.m_rotationSpeed = 20;
+
+	Transform arturoPlanetTransform;
+	arturoPlanetTransform.m_position = vec2{ 100, 0 };
+	arturoPlanetTransform.m_parent = &sunTransform;
 
 	while (sfw::stepContext())
 	{
@@ -48,19 +60,26 @@ void main()
 		else if (playerTransform.m_position.y < 0.0f)
 			playerTransform.m_position.y = SCREEN_HEIGHT;
 
-		// Apply rigidbody forces
-		playerCtrl.update(playerLoco);
-		playerLoco.update(playerTransform, playerRigidbody);
-		playerRigidbody.integrate(playerTransform, deltaTime);
-		
-		// Draw the player
-		playerTransform.debugDraw();
-		playerRigidbody.debugDraw(playerTransform);
+		//// Apply rigidbody forces
+		//playerCtrl.update(playerLoco);
+		//playerLoco.update(playerTransform, playerRigidbody);
+		//playerRigidbody.integrate(playerTransform, deltaTime);
+		//
+		//// Draw the player
+		//playerTransform.debugDraw();
+		//playerRigidbody.debugDraw(playerTransform);
 
-		ST1.debugDraw();
-		ST2.debugDraw();
-		ST3.debugDraw();
-		ST4.debugDraw();
+		//ST1.debugDraw();
+		//ST2.debugDraw();
+		//ST3.debugDraw();
+		//ST4.debugDraw();
+
+		
+		sunMotor.update(sunRbody);
+		sunRbody.integrate(sunTransform, deltaTime);
+		sunTransform.debugDraw();
+
+		arturoPlanetTransform.debugDraw();
 	}
 	sfw::termContext();
 }
