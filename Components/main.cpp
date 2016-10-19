@@ -63,7 +63,7 @@ void main()
 	PlanetaryRenderer moon1renderer(WHITE, 7);
 
 
-	vec2 cameraPosition = vec2{0,0};
+	Transform cameraTransform;
 
 	while (sfw::stepContext())
 	{
@@ -90,18 +90,13 @@ void main()
 		//plan1renderer.draw(plan1);
 		//moon1renderer.draw(moon1);
 		
-		// inverse(M) * M = I
-
-		// mat3 camera = translate(600, 600) * scale(2,2) * inverse(playerTransform.getGlobalTransform());
-
-		vec2 gp = playerTransform.getGlobalPosition();
-
-		cameraPosition = lerp(cameraPosition, gp, 0.2f);
-		// The inverse of a matrix, for the purposes of camera-work, is typically called a 'view matrix'
-		// And anything else that we is factored into the camera is typically called a 'projection matrix'
-		
-		mat3 proj = translate(600, 600) * scale(3, 3);  // kind of like a lens
-		mat3 view = inverse(translate(cameraPosition.x, cameraPosition.y));		// where the camera is
+		cameraTransform.m_position
+					= lerp(cameraTransform.m_position,
+						   playerTransform.getGlobalPosition(),
+						   sfw::getDeltaTime() * 10);
+	
+		mat3 proj = translate(600, 600) * scale(3, 3);
+		mat3 view = inverse(cameraTransform.getGlobalTransform());
 
 		mat3 camera = proj * view;
 
@@ -109,6 +104,7 @@ void main()
 		sunTransform.debugDraw(camera);
 		plan1.debugDraw(camera);
 		moon1.debugDraw(camera);
+		cameraTransform.debugDraw(camera);
 	}
 	sfw::termContext();
 }
