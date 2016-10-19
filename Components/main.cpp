@@ -90,12 +90,15 @@ void main()
 		//plan1renderer.draw(plan1);
 		//moon1renderer.draw(moon1);
 		
+		// Use a lerp to chase the player's ship
 		cameraTransform.m_position
 					= lerp(cameraTransform.m_position,
 						   playerTransform.getGlobalPosition(),
 						   sfw::getDeltaTime() * 10);
 	
-		mat3 proj = translate(600, 600) * scale(3, 3);
+		// translation is the position of the camera ON THE SCREEN
+		// the scale describes the zoom
+		mat3 proj = translate(600, 600) * scale(2, 2);
 		mat3 view = inverse(cameraTransform.getGlobalTransform());
 
 		mat3 camera = proj * view;
