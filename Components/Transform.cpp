@@ -31,6 +31,28 @@ void Transform::setDirection(const vec2 &dir)
 	m_facing = angle(dir);
 }
 
+vec2 Transform::getGlobalPosition() const
+{
+	return getGlobalTransform()[2].xy;
+}
+
+// First column of the Global Transform.
+vec2 Transform::getGlobalright() const
+{
+	return getGlobalTransform()[0].xy;
+}
+
+vec2 Transform::getGlobalUp() const
+{
+	return getGlobalTransform()[1].xy;
+}
+
+float Transform::getGlobalAngle() const
+{
+	//atan2f(y,x)
+	return angle(getGlobalright());
+}
+
 
 /*
 	This function gets our global transform!
@@ -68,7 +90,7 @@ void Transform::debugDraw(const mat3 &T) const
 	sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
 
 	// Draw line to parent if possible.
-	vec3 sgp = m_parent ? m_parent->getGlobalTransform()[2] : pos;
+	vec3 sgp = m_parent ? T * m_parent->getGlobalTransform()[2] : pos;
 	sfw::drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);
 
 	sfw::drawCircle(pos.x, pos.y, 12, 12, 0x888888FF);

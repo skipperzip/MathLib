@@ -82,6 +82,11 @@ float angleBetween(const vec2 & lhs, const vec2 & rhs)
 	return acos(dot(normal(lhs), normal(rhs)));
 }
 
+float dist(const vec2 & a, const vec2 & b)
+{
+	return sqrtf(dot((a - b), (a - b)));
+}
+
 vec2 perp(const vec2 & v)
 {
 	return {v.y,-v.x};

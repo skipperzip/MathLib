@@ -125,14 +125,14 @@ int main()
 	mat3 T = translate(4, 3);
 	mat3 R = rotate(deg2rad(90));
 
-	mat3 RES = { 0,-1,0, 2,0,0, 4,3,1 };
+	//mat3 RES = { 0,-1,0, 2,0,0, 4,3,1 };
 
-	bool r0 = (S*T*R == RES);
-	bool r1 = (S*R*T == RES);
-	bool r2 = (R*S*T == RES);
-	bool r3 = (R*T*S == RES);
-	bool r4 = (T*S*R == RES);
-	bool r5 = (T*R*S == RES);
+	//bool r0 = (S*T*R == RES);
+	//bool r1 = (S*R*T == RES);
+	//bool r2 = (R*S*T == RES);
+	//bool r3 = (R*T*S == RES);
+	//bool r4 = (T*S*R == RES);
+	//bool r5 = (T*R*S == RES);
 
 
 
@@ -144,6 +144,29 @@ int main()
 		  translate(6, 4)      *  vec3 { 0, 0, 1 };
 
 	assert((test == vec3{2*sqrtf(2), -6-2*sqrtf(2) , 1}));
+
+
+
+
+	vec2 WP[] = { {12,-8}, {15,18},{5,8},{-22,-5},
+				  {4,-2},{-6,9},{18,88},{-22,-90} };
+
+	mat3 RES = translate(12, -8) * rotate(deg2rad(80)); // setup starting orientation.
+
+	for (int i = 0; i < 8-1; ++i)
+	{
+		vec2 D = WP[i + 1] - WP[i];
+
+		float current  = atan2f(RES[0].y, RES[0].x);
+		float target   = atan2f(D.y, D.x);
+		float distance = magnitude(D);
+
+		mat3 R = rotate(target - current);
+		mat3 T = translate(distance, 0);
+
+		RES = RES * R * T;
+	}
+
 
 	return 0;
 }

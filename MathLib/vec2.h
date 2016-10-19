@@ -44,6 +44,8 @@ float dot(const vec2 &lhs, const vec2 &rhs);
 
 float angleBetween(const vec2 &lhs, const vec2 &rhs);
 
+float dist(const vec2 &a, const vec2 &b);
+
 vec2 perp(const vec2 &v);
 
 
