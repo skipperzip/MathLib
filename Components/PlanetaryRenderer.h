@@ -10,5 +10,5 @@ public:
 	unsigned int color;	// color of planet
 	float size;			// radius of planet
 
-	void draw(Transform &planetTrans);
+	void draw(const mat3& T, Transform &planetTrans);
 };

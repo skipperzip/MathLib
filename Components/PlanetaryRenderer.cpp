@@ -8,7 +8,7 @@ PlanetaryRenderer::PlanetaryRenderer(unsigned a_color, float a_size)
 	size = a_size;
 }
 
-void PlanetaryRenderer::draw(Transform & planetTrans)
+void PlanetaryRenderer::draw(const mat3& T, Transform & planetTrans)
 {
 	mat3 glob = planetTrans.getGlobalTransform();
 

@@ -81,6 +81,7 @@ void main()
 		plan1motor.update(plan1RB);
 		moon1motor.update(moon1RB);
 
+		playerRigidbody.integrate(playerTransform, deltaTime);
 		moon1RB.integrate(moon1, deltaTime);
 		plan1RB.integrate(plan1, deltaTime);
 		sunRbody.integrate(sunTransform, deltaTime);
@@ -110,6 +111,10 @@ void main()
 		plan1.debugDraw(camera);
 		moon1.debugDraw(camera);
 		cameraTransform.debugDraw(camera);
+
+		playerRigidbody.debugDraw(camera,playerTransform);
+
+
 	}
 	sfw::termContext();
 }
