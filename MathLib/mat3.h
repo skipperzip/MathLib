@@ -32,6 +32,11 @@ mat3 operator*(float s, const mat3 &A);
 mat3 operator*(const mat3 &A, const mat3 &B);
 vec3 operator*(const mat3 &A, const vec3 &V);
 
+
+// affine multiplication
+vec2 amul(const mat3 &A, const vec2 &V);
+
+
 float determinant(const mat3 &A);
 mat3 inverse(const mat3 &A);
 

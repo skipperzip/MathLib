@@ -45,6 +45,8 @@ void Rigidbody::integrate(Transform &trans, float deltaTime)
 
 void Rigidbody::debugDraw(const mat3& T, const Transform & trans)
 {
+	// amul(T, trans.getGlobalPosition());
+
 	vec2 p =  (T * trans.getGlobalTransform())[2].xy;
 	vec2 v = p + velocity;
 	vec2 a = acceleration + p;

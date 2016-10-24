@@ -5,6 +5,7 @@
 #include "Rigidbody.h"
 #include "SpaceshipLocomotion.h"
 #include "SpaceshipController.h"
+#include "SpaceshipRenderer.h"
 
 #include "PlanetaryMotor.h"
 #include "PlanetaryRenderer.h"
@@ -32,9 +33,12 @@ void main()
 	//ST4.m_parent = &ST3;
 	
 	Transform playerTransform(200, 200);
+
+	playerTransform.m_scale = vec2{20,20};
 	Rigidbody playerRigidbody;
 	SpaceshipController playerCtrl;
 	SpaceshipLocomotion playerLoco;
+	SpaceshipRenderer playerRender;
 
 	// Sun
 	Transform sunTransform;
@@ -87,9 +91,7 @@ void main()
 		sunRbody.integrate(sunTransform, deltaTime);
 
 		// Drawing
-		//sunRenderer.draw(sunTransform);
-		//plan1renderer.draw(plan1);
-		//moon1renderer.draw(moon1);
+
 		
 		// Use a lerp to chase the player's ship
 		// totally optional.
@@ -99,6 +101,9 @@ void main()
 						   + sunTransform.getGlobalPosition())/2,
 						   sfw::getDeltaTime() * 10);
 	
+
+
+
 		// translation is the position of the camera ON THE SCREEN
 		// the scale describes the zoom
 		mat3 proj = translate(600, 600) * scale(2, 2);
@@ -114,7 +119,11 @@ void main()
 
 		playerRigidbody.debugDraw(camera,playerTransform);
 
-
+		sunRenderer.draw(camera, sunTransform);
+		plan1renderer.draw(camera, plan1);
+		moon1renderer.draw(camera, moon1);
+	
+		playerRender.draw(camera, playerTransform);
 	}
 	sfw::termContext();
 }
