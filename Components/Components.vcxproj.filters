@@ -62,5 +62,8 @@
     <ClInclude Include="SpaceshipRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="shapedraw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

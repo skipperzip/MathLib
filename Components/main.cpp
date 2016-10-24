@@ -90,8 +90,9 @@ void main()
 		plan1RB.integrate(plan1, deltaTime);
 		sunRbody.integrate(sunTransform, deltaTime);
 
-		// Drawing
 
+		/////////////////////////////////////////
+		// Drawing
 		
 		// Use a lerp to chase the player's ship
 		// totally optional.

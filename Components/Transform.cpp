@@ -1,5 +1,6 @@
 #include "Transform.h"
 #include "sfwdraw.h"
+#include "shapedraw.h"
 
 Transform::Transform(float x, float y, float w, float h, float a)
 {
@@ -93,5 +94,7 @@ void Transform::debugDraw(const mat3 &T) const
 	vec3 sgp = m_parent ? T * m_parent->getGlobalTransform()[2] : pos;
 	sfw::drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);
 
-	sfw::drawCircle(pos.x, pos.y, 12, 12, 0x888888FF);
+	drawCircle(L * Circle{0,0, 10},0x888888FF);
+
+	//sfw::drawCircle(pos.x, pos.y, 12, 12, 0x888888FF);
 }

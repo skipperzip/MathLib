@@ -10,6 +10,7 @@
 #include "mat2.h"
 #include "mat3.h"
 
+#include "shapes.h"
 
 int main()
 {
@@ -168,6 +169,19 @@ int main()
 	}
 
 
+
+
+	Circle c = {0, 0, 5};
+	
+
+	assert((translate(4, 0) * c == Circle{ 4, 0, 5 }));
+
+	assert((scale( 2, 1) * c == Circle{ 0, 0, 10 }));
+	assert((scale( 2, 2) * c == Circle{ 0, 0, 10 }));
+	assert((scale( 1, 2) * c == Circle{ 0, 0, 10 }));
+
+	assert((scale(-1, 1) * c == Circle{ 0, 0, 5 }));
+	assert((rotate(45) * c == Circle{ 0,0,5 }));
 	return 0;
 }
 
