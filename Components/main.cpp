@@ -91,9 +91,11 @@ void main()
 		//moon1renderer.draw(moon1);
 		
 		// Use a lerp to chase the player's ship
+		// totally optional.
 		cameraTransform.m_position
 					= lerp(cameraTransform.m_position,
-						   playerTransform.getGlobalPosition(),
+						   (playerTransform.getGlobalPosition() 
+						   + sunTransform.getGlobalPosition())/2,
 						   sfw::getDeltaTime() * 10);
 	
 		// translation is the position of the camera ON THE SCREEN
