@@ -34,7 +34,7 @@ void main()
 	
 	Transform playerTransform(200, 200);
 
-	playerTransform.m_scale = vec2{20,10};
+	playerTransform.m_scale = vec2{10,20};
 	Rigidbody playerRigidbody;
 	SpaceshipController playerCtrl;
 	SpaceshipLocomotion playerLoco;

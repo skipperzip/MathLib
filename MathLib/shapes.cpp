@@ -20,3 +20,40 @@ bool operator==(const Circle & A, const Circle & B)
 {
 	return A.pos == B.pos && fequals(A.rad, B.rad);
 }
+
+
+
+vec2 AABB::min() const
+{
+	return pos - he;
+}
+
+vec2 AABB::max() const
+{
+	return pos + he;
+}
+
+
+/*
+	STUB for AABB Transformation
+
+	min : pos - he
+	max : pos + he
+
+	pos : (max + min) / 2
+	he  : (max - min) / 2
+*/
+AABB operator*(const mat3 & T, const AABB & A)
+{
+	AABB retval = A;
+	
+	/*
+		This is not correct!
+	*/
+	retval.pos = (T * vec3{ A.pos.x,A.pos.y,1 }).xy;
+
+	retval.he = (T * vec3{ A.he.x,A.he.y,0 }).xy;
+	return retval;
+}
+
+// Good Morning Esme! :)

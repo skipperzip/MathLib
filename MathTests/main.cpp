@@ -181,6 +181,18 @@ int main()
 
 	assert((scale(-1, 1) * c == Circle{ 0, 0, 5 }));
 	assert((rotate(45) * c == Circle{ 0,0,5 }));
+
+
+	AABB testA = {1,2, 3,4};
+
+	assert((testA.min() == vec2{-2,-2}));
+	assert((testA.max() == vec2{ 4, 6}));
+
+	AABB testB = {0,0,2,1};
+	mat3 rot = rotate(deg2rad(90));
+
+	assert((rot*testB == AABB{0,0,1,2}));
+
 	return 0;
 }
 
