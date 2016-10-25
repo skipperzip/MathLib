@@ -25,6 +25,7 @@ void SpaceshipRenderer::draw(const mat3 & T, const Transform & ship)
 	sfw::drawLine(R.x, R.y, B.x, B.y, color);
 	sfw::drawLine(B.x, B.y, L.x, L.y, color);
 
+
 	vec3 F1 = glob * vec3{  -1,  -2,  1 };
 	vec3 L1 = glob * vec3{ -1, 2,  1 };
 	vec3 R1 = glob * vec3{  1, -2,  1 };
@@ -34,7 +35,5 @@ void SpaceshipRenderer::draw(const mat3 & T, const Transform & ship)
 	sfw::drawLine(F1.x, F1.y, R1.x, R1.y, 0x888888FF);
 	sfw::drawLine(R1.x, R1.y, B1.x, B1.y, 0x888888FF);
 	sfw::drawLine(B1.x, B1.y, L1.x, L1.y, 0x888888FF);
-
-	drawAABB(glob * AABB{ 0, 0, 1, 2 }, 0x888888FF);
 }
 

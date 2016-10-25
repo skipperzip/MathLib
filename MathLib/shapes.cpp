@@ -43,17 +43,66 @@ vec2 AABB::max() const
 	pos : (max + min) / 2
 	he  : (max - min) / 2
 */
-AABB operator*(const mat3 & T, const AABB & A)
-{
-	AABB retval = A;
-	
-	/*
-		This is not correct!
-	*/
-	retval.pos = (T * vec3{ A.pos.x,A.pos.y,1 }).xy;
+AABB operator*(const mat3 & T, const AABB & box)
+{	
+	AABB retval = box;	
+	vec3 tP[4];
 
-	retval.he = (T * vec3{ A.he.x,A.he.y,0 }).xy;
+	// First we want to transform the points
+	tP[0] = T * vec3{ box.min().x, box.min().y, 1 };
+	tP[1] = T * vec3{ box.max().x, box.max().y, 1 };
+	tP[2] = T * vec3{ box.max().x, box.min().y, 1 };
+	tP[3] = T * vec3{ box.min().x, box.max().y, 1 };
+
+	// find the minimum and maximum extents
+	vec2 minv = tP[0].xy;
+	vec2 maxv = tP[0].xy;
+	
+	for (int i = 1; i < 4; ++i)
+	{
+		minv = min(minv, tP[i].xy);
+		maxv = max(maxv, tP[i].xy);
+	}
+
+	// evaluate the position and dimensions
+	retval.pos = (minv + maxv) / 2;
+	retval.he  = (maxv - minv) / 2;
 	return retval;
 }
 
-// Good Morning Esme! :)
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+vec2 t[4];
+
+t[0] = (T * vec3{ box.min().x, box.max().y, 1 }).xy;
+t[1] = (T * vec3{ box.max().x, box.max().y, 1 }).xy;
+t[2] = (T * vec3{ box.max().x, box.min().y, 1 }).xy;
+t[3] = (T * vec3{ box.min().x, box.min().y, 1 }).xy;
+
+vec2 min = t[0], max = t[0];
+
+for (int i = 1; i < 4; ++i)
+{
+	min.x = t[i].x < min.x ? t[i].x : min.x;
+	min.y = t[i].y < min.y ? t[i].y : min.y;
+
+	max.x = t[i].x > max.x ? t[i].x : max.x;
+	max.y = t[i].y > max.y ? t[i].y : max.y;
+}
+
+retval.he = (max - min) / 2;
+retval.pos = (max + min) / 2;
+
+*/

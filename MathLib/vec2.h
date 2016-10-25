@@ -69,3 +69,9 @@ vec2 cardinalSpline(const vec2 &start, const vec2 &mid, const vec2 &end,
 					float tightness, float alpha);
 
 vec2 catRomSpline(const vec2 &start, const vec2 &mid, const vec2 &end, float alpha);
+
+////////////////////////////////////////////////////
+//////////
+
+vec2 min(const vec2 &A, const vec2 &B);
+vec2 max(const vec2 &A, const vec2 &B);
