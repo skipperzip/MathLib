@@ -189,10 +189,10 @@ int main()
 	assert((testA.min() == vec2{-2,-2}));
 	assert((testA.max() == vec2{ 4, 6}));
 
-	AABB testB = {0,0,2,1};
+	//AABB testB = {0,0,2,1};
 	mat3 rot = rotate(deg2rad(90));
 
-	assert((rot*testB == AABB{0,0,1,2}));
+	//assert((rot*testB == AABB{0,0,1,2}));
 
 
 
@@ -206,6 +206,19 @@ int main()
 	assert(collisionDetection1D(0, 2, 1, 3).collisionNormal ==  1);
 	assert(collisionDetection1D(1, 3, 0, 2).collisionNormal == -1);
 	
+
+	assert(sweptDetection1D(0, 1, 2,  3, 4, 0).entryTime == 1.f);
+	assert(sweptDetection1D(0, 1, 5,  3, 4, 0).entryTime == .4f);
+
+	assert(sweptDetection1D(0, 1, -5, 3, 4, 10).result() == false);
+	
+	
+	AABB A = {0,0, 2,4};
+	AABB B = {2,2, 2,4};
+	
+	assert( boxCollision(A, B).penetrationDepth == 2);
+	assert((boxCollision(A, B).collisionNormal == vec2{  1, 0 }));
+	assert((boxCollision(B, A).collisionNormal == vec2{ -1, 0 }));
 	return 0;
 }
 
