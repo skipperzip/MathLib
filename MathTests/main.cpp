@@ -10,6 +10,7 @@
 #include "mat3.h"
 
 #include "shapes.h"
+#include "collision.h"
 
 int main()
 {
@@ -192,6 +193,12 @@ int main()
 	mat3 rot = rotate(deg2rad(90));
 
 	assert((rot*testB == AABB{0,0,1,2}));
+
+
+
+
+	assert(collisionDetection1D(0, 2, 1, 3).result == true);
+	assert(collisionDetection1D(0, 2, 1, 3).penetrationDepth == 1);
 
 	return 0;
 }

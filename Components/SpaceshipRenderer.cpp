@@ -27,9 +27,9 @@ void SpaceshipRenderer::draw(const mat3 & T, const Transform & ship)
 
 
 	vec3 F1 = glob * vec3{  -1,  -2,  1 };
-	vec3 L1 = glob * vec3{ -1, 2,  1 };
-	vec3 R1 = glob * vec3{  1, -2,  1 };
-	vec3 B1 = glob * vec3{  1, 2,  1 }; 
+	vec3 L1 = glob * vec3{  -1,   2,  1 };
+	vec3 R1 = glob * vec3{   1,  -2,  1 };
+	vec3 B1 = glob * vec3{   1,   2,  1 }; 
 
 	sfw::drawLine(L1.x, L1.y, F1.x, F1.y, 0x888888FF);
 	sfw::drawLine(F1.x, F1.y, R1.x, R1.y, 0x888888FF);
