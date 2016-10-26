@@ -197,9 +197,15 @@ int main()
 
 
 
-	assert(collisionDetection1D(0, 2, 1, 3).result == true);
-	assert(collisionDetection1D(0, 2, 1, 3).penetrationDepth == 1);
+	assert(collisionDetection1D(0, 2, 1, 3).result() == true);
 
+
+	assert(collisionDetection1D(0, 2, 1, 3).penetrationDepth == 1);
+	assert(collisionDetection1D(1, 3, 0, 2).penetrationDepth == 1);
+
+	assert(collisionDetection1D(0, 2, 1, 3).collisionNormal ==  1);
+	assert(collisionDetection1D(1, 3, 0, 2).collisionNormal == -1);
+	
 	return 0;
 }
 
