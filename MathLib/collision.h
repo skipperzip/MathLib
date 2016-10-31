@@ -49,3 +49,14 @@ struct CollisionDataSwept
 
 CollisionDataSwept boxCollisionSwept(const AABB &A, const vec2 &dA,
 						             const AABB &B, const vec2 &dB);
+// Determine the 4 points on the box.
+// Project them onto the plane's axis.
+// Find the minimum and maximum along the axis.
+// Perform 1D SAT discrete detection.
+CollisionData planeBoxCollision(const Plane &P,
+								const AABB &B);
+
+
+// You also project the velocity.
+CollisionDataSwept planeBoxCollisionSwept
+	(const Plane &P, const AABB &B, const vec2 &Bvel);

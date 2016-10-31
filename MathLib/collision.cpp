@@ -121,6 +121,18 @@ CollisionDataSwept boxCollisionSwept(const AABB & A, const vec2 & dA,
 	return retval;
 }
 
+CollisionData planeBoxCollision(const Plane & P,
+								const AABB & B)
+{
+	CollisionData retval;
+
+
+
+
+
+	return retval;
+}
+
 
 
 

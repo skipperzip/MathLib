@@ -242,6 +242,21 @@ int main()
 	assert(fequals(boxCollisionSwept(As, vec2{ 0,-1 },
 									 Bs, vec2{ 0 ,1 }).exitTime, -4));
 
+
+	AABB Bp = {0,0, 4,4};
+	
+	Plane P1 = {0,0,0,1};   // clipping case
+	Plane P2 = {0,-10,0,1}; // non-overlapping
+	Plane P3 = {0, 10,0,1}; // fully overlapping
+	
+	Plane P4 = { vec2{6,6}, normal(vec2{-1,1} ) }; // overlapping
+	Plane P5 = { vec2{ 6,6 }, normal(vec2{ -1,-1 }) }; // non-overlap
+	
+	assert(planeBoxCollision(P1, Bp).result());
+	assert(!planeBoxCollision(P2, Bp).result()); // doesn't overlap
+	assert(planeBoxCollision(P3, Bp).result());
+	assert(planeBoxCollision(P4, Bp).result());
+	assert(!planeBoxCollision(P5, Bp).result()); // doesn't overlap
 }
 
 /*

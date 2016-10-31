@@ -66,6 +66,10 @@ void main()
 		drawAABB(camera
 			* playerTransform.getGlobalTransform()
 			* AABB { 0, 0, 1, 2 }, RED);
+
+		drawPlane(camera
+			* playerTransform.getGlobalTransform()
+			* Plane { 0, 0, 0, 1 }, WHITE);
 	}
 	sfw::termContext();
 }
