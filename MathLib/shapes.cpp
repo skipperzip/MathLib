@@ -70,6 +70,24 @@ AABB operator*(const mat3 & T, const AABB & box)
 	return retval;
 }
 
+/*
+[rs rs tx][x]
+[rs rs ty][y] = rs*x + rs*y + tx*0
+[ 0  0  1][0]
+*/
+	Plane operator*(const mat3 & T, const Plane & P)
+	{
+		Plane retval;
+
+		retval.pos = 
+				(T * vec3{ P.pos.x, P.pos.y, 1 }).xy;
+		
+		retval.dir =
+				normal(T * vec3{ P.dir.x, P.dir.y, 0 }).xy;
+
+		return retval;
+	}
+
 
 
 

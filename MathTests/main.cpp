@@ -206,6 +206,7 @@ int main()
 	assert(collisionDetection1D(0, 2, 1, 3).collisionNormal ==  1);
 	assert(collisionDetection1D(1, 3, 0, 2).collisionNormal == -1);
 	
+	SweptCollisionData1D swcd = sweptDetection1D(0, 1, 2, 3, 4, 0);
 
 	assert(sweptDetection1D(0, 1, 2,  3, 4, 0).entryTime == 1.f);
 	assert(sweptDetection1D(0, 1, 5,  3, 4, 0).entryTime == .4f);
@@ -219,6 +220,35 @@ int main()
 	assert( boxCollision(A, B).penetrationDepth == 2);
 	assert((boxCollision(A, B).collisionNormal == vec2{  1, 0 }));
 	assert((boxCollision(B, A).collisionNormal == vec2{ -1, 0 }));
-	return 0;
+
+
+	AABB As = {0,0, 1,1};
+	AABB Bs = {0,10, 1,1};
+
+	
+	//assert(fequals(boxCollisionSwept(As, vec2{ 1,0 }, Bs, vec2{ -1,0 }).entryTime, 4));
+	//assert(fequals(boxCollisionSwept(As, vec2{ 1,0 }, Bs, vec2{ -1,0 }).exitTime, 6));
+
+	CollisionDataSwept testing =
+		boxCollisionSwept(As, vec2{ 0,1 }, Bs, vec2{ 0 ,-1 });
+
+	assert(fequals(boxCollisionSwept(As, vec2{ 0, 1 },
+									 Bs, vec2{ 0,-1 }).entryTime, 4));
+	
+	assert(fequals(boxCollisionSwept(As, vec2{ 0, 1 },
+									 Bs, vec2{ 0,-1 }).exitTime, 6));
+
+
+	assert(fequals(boxCollisionSwept(As, vec2{ 0,-1 },
+									 Bs, vec2{ 0 ,1 }).exitTime, -4));
+
 }
 
+/*
+T     A     B
+0  : 0,0 : 10,0
+1  : 1,0 :  9,0
+2  : 2,0 :  8,0
+3  : 3,0 :  7,0
+4  : 4,0 :  6,0  >> Touching at 5, 0
+*/

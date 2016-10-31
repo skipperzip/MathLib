@@ -37,3 +37,15 @@ struct CollisionData
 
 CollisionData boxCollision(const AABB &A,
 						   const AABB &B);
+
+struct CollisionDataSwept
+{
+	float entryTime, exitTime;
+	vec2 collisionNormal;
+	bool collides;
+
+	bool result() const;
+};
+
+CollisionDataSwept boxCollisionSwept(const AABB &A, const vec2 &dA,
+						             const AABB &B, const vec2 &dB);
