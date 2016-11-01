@@ -122,13 +122,47 @@ CollisionDataSwept boxCollisionSwept(const AABB & A, const vec2 & dA,
 }
 
 CollisionData planeBoxCollision(const Plane & P,
-								const AABB & B)
+								const AABB  & B)
 {
 	CollisionData retval;
+	// Project the corners of the box onto the plane's axis.	
+	float pTL = dot(P.dir, vec2{B.min().x, B.max().y});
+	float pBR = dot(P.dir, vec2{B.max().x, B.min().y});
+	float pTR = dot(P.dir, B.max());
+	float pBL = dot(P.dir, B.min());
 
+	float pBmin = fminf(fminf(pTL, pTR), fminf(pBR, pBL));
+	//float pBmax = fmaxf(fmaxf(pTL, pTR), fmaxf(pBR, pBL));
 
+	// Projecting plane's point onto the axis
+	float pPmax = dot(P.dir, P.pos);
 
+	retval.collisionNormal = P.dir;
 
+	retval.penetrationDepth = pPmax - pBmin;
+	return retval;
+}
+
+CollisionDataSwept planeBoxCollisionSwept(const Plane & P, const vec2 &Pvel,
+										  const AABB & B,  const vec2 & Bvel)
+{
+	CollisionDataSwept retval;
+
+	float pTL = dot(P.dir, vec2{ B.min().x, B.max().y });
+	float pBR = dot(P.dir, vec2{ B.max().x, B.min().y });
+	float pTR = dot(P.dir, B.max());
+	float pBL = dot(P.dir, B.min());
+
+	float pBmin = fminf(fminf(pTL, pTR), fminf(pBR, pBL));
+	float pBmax = fmaxf(fmaxf(pTL, pTR), fmaxf(pBR, pBL));
+
+	float pBvel = dot(P.dir, Bvel);
+	float pPvel = dot(P.dir, Pvel);
+
+	float pPmax = dot(P.dir, P.pos);
+
+	retval.entryTime = (pBmin - pPmax) / (pPvel - pBvel);
+	retval.exitTime  = (pBmax - pPmax) / (pPvel - pBvel);
 
 	return retval;
 }

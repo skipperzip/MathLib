@@ -58,5 +58,8 @@ CollisionData planeBoxCollision(const Plane &P,
 
 
 // You also project the velocity.
-CollisionDataSwept planeBoxCollisionSwept
-	(const Plane &P, const AABB &B, const vec2 &Bvel);
+
+CollisionDataSwept planeBoxCollisionSwept(const Plane & P, const vec2 &Pvel,
+	const AABB & B, const vec2 & Bvel);
+
+
