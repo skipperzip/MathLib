@@ -2,38 +2,27 @@
 
 #include "mat3.h"
 
-// Bounding Volumes
-	// Simplifications of more complex ideas.
+
 struct Circle
 {
-	vec2  pos; // offset
+	vec2  pos;
 	float rad;
 };
-
-// Treat the radius as an X-aligned vector and Y-aligned vector,
-// multiply them by the matrix, get their magnitude.
-// The largest magnitude will be the new radius.
-
-// Should transform both position and radius by the matrix.
 Circle operator*(const mat3 &T, const Circle &C);
 
 //
-// Are the positions and radii equals
-	// A.pos == B.pos && fequals(A.rad, B.rad)
+
 bool  operator==(const Circle &A, const Circle &B);
 
 
-// Either store a minimum and a maximum
-// position and dimension
+
 struct AABB
 {
 	vec2 pos,
-		  he; // half-extents
-				// x = half-width
-			    // y = half-height
+		  he; 
 
-	vec2 min() const; // bottom left corner
-	vec2 max() const; // top right corner
+	vec2 min() const; 
+	vec2 max() const;
 };
 
 AABB  operator*(const mat3 &T, const AABB  &A);
@@ -52,10 +41,31 @@ bool  operator==(const Plane &A, const Plane &B);
 
 
 struct Ray    { };
-struct Hull   { };
-
-
-
-
 Ray    operator*(const mat3 &T, const Ray    &R);
-Hull   operator*(const mat3 &T, const Hull   &H);
+
+
+
+
+/*
+	We may want to ensure that it is convex.
+	We want to be able to calculate surface normals.
+*/
+
+struct Hull
+{
+	vec2 vertices[16];
+	vec2 normals[16];
+	unsigned int size;
+
+	// assume a CW winding order.
+		// loop through every neighboring pair of vertices
+			// evaluate the normal of each pair (store it).
+	Hull(const vec2 *a_vertices, unsigned a_size);
+};
+
+// If the convex hulls are the same size,
+	// Loop through and compare their normals and vertices
+bool   operator==(const Hull &A, const Hull &B);
+
+// Multiply each vertex and normal by the matrix
+Hull   operator* (const mat3 &T, const Hull &H);
