@@ -61,6 +61,8 @@ struct Hull
 		// loop through every neighboring pair of vertices
 			// evaluate the normal of each pair (store it).
 	Hull(const vec2 *a_vertices, unsigned a_size);
+
+	Hull(); // empty hull constructor
 };
 
 // If the convex hulls are the same size,
@@ -69,3 +71,13 @@ bool   operator==(const Hull &A, const Hull &B);
 
 // Multiply each vertex and normal by the matrix
 Hull   operator* (const mat3 &T, const Hull &H);
+
+// loop through each vertex and normal, multiply by matrix:
+	// Mat3 * Position  {x, y, 1} (for vertices)
+	// Mat3 * Direction {x, y, 0} (for normals)
+/*
+
+[1    x]
+[  1  y]
+[     1]
+*/
