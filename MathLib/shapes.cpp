@@ -107,43 +107,6 @@ Hull operator*(const mat3 & T, const Hull & H)
 	}
 	return retval;
 }
-/*
-       [p]
-       [q]
-       [0]
-[1   x][p + x*0]
-[  1 y][q + y*0]
-[    1][0 + 1*0]
-*/
-
-
-
-
-
-
-/*
-vec2 t[4];
-
-t[0] = (T * vec3{ box.min().x, box.max().y, 1 }).xy;
-t[1] = (T * vec3{ box.max().x, box.max().y, 1 }).xy;
-t[2] = (T * vec3{ box.max().x, box.min().y, 1 }).xy;
-t[3] = (T * vec3{ box.min().x, box.min().y, 1 }).xy;
-
-vec2 min = t[0], max = t[0];
-
-for (int i = 1; i < 4; ++i)
-{
-	min.x = t[i].x < min.x ? t[i].x : min.x;
-	min.y = t[i].y < min.y ? t[i].y : min.y;
-
-	max.x = t[i].x > max.x ? t[i].x : max.x;
-	max.y = t[i].y > max.y ? t[i].y : max.y;
-}
-
-retval.he = (max - min) / 2;
-retval.pos = (max + min) / 2;
-
-*/
 
 Hull::Hull(const vec2 *a_vertices, unsigned a_size)
 {
@@ -157,9 +120,7 @@ Hull::Hull(const vec2 *a_vertices, unsigned a_size)
 	}
 }
 
-Hull::Hull()
-{
-}
+Hull::Hull() { size = 0; }
 
 // 0, 1, 2, 3
 
