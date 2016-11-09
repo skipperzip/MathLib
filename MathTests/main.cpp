@@ -289,8 +289,8 @@ int main()
 	assert((tHull.vertices[2] == vec2{ 2, 0 }));
 	assert((tHull.vertices[3] == vec2{ 1, 0 }));
 
-	//assert(fequals(HullCollision(myHull,otherHull).penetrationDepth,  0));
-	assert(fequals(HullCollision(myHull, tHull).penetrationDepth,-1));
+	assert(fequals(HullCollision(myHull,otherHull).penetrationDepth,  0));
+	assert(fequals(HullCollision(otherHull, tHull).penetrationDepth, -1));
 
 }
 
