@@ -79,3 +79,25 @@ CollisionData HullCollision(const Hull &A, const Hull &B);
 /*
 	The most normal of axes you'll deal with is 32.
 */
+
+/*
+	bestResult.penetrationDepth = -INFINITY
+
+	for each axis of A:
+		for A, loop to project points and finding min/max (similar to plane vs box)
+		for B, loop to project points and finding min/max
+		
+		currentResult = 1DSAT(amin, amax, bmin, bmax)
+		
+		if(currentResult.penetrationDepth < bestResult.penetrationDepth)
+			bestResult = currentResult;
+
+	for each axis of B:
+		for A, loop to project points and finding min/max
+		for B, loop to project points and finding min/max
+
+		currentResult = 1DSAT(amin, amax, bmin, bmax)
+
+		if(currentResult.penetrationDepth < bestResult.penetrationDepth)
+			bestResult = currentResult;
+	*/

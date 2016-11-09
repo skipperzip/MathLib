@@ -169,6 +169,66 @@ CollisionDataSwept planeBoxCollisionSwept(const Plane & P, const vec2 &Pvel,
 
 
 
+CollisionData HullCollision(const Hull & A, const Hull & B)
+{
+	int size = 0;
+	vec2 axes[32];
+	
+	// Combining all the axes into a single array
+	for (int j = 0; j < A.size; ++j) axes[size++] = A.normals[j];
+	for (int j = 0; j < B.size; ++j) axes[size++] = B.normals[j];
+
+
+	CollisionData retval;
+	retval.penetrationDepth = INFINITY;
+	// For every axis,
+	for (int j = 0; j < size; ++j)
+	{		
+		vec2 &axis = axes[j];
+		float amin = INFINITY, amax = -INFINITY;
+		float bmin = INFINITY, bmax = -INFINITY;
+		
+		// Find projected extents along the axis
+		for (int i = 0; i < A.size; ++i)
+		{
+			float proj = dot(axis, A.vertices[i]);
+			amin = fminf(proj, amin);
+			amax = fmaxf(proj, amax);
+		}
+		for (int i = 0; i < B.size; ++i)
+		{
+			float proj = dot(axis, B.vertices[i]);
+			bmin = fminf(proj, bmin);
+			bmax = fmaxf(proj, bmax);
+		}
+		// 1D SAT solution
+		float pDr, pDl, pD, H;
+		pDr = amax - bmin;
+		pDl = bmax - amin;
+
+		pD = fminf(pDr, pDl);
+		H  = copysignf(1, pDl - pDr);
+
+		// Pick the smallest one
+		if (pD < retval.penetrationDepth)
+		{
+			retval.penetrationDepth = pD;
+			retval.collisionNormal = axis * H;
+		}
+	}
+
+	return retval;
+}
+
+
+CollisionData1D retval;
+
+//float pDr = Amax - Bmin;
+//float pDl = Bmax - Amin;
+//retval.penetrationDepth = fmin(pDr, pDl);
+//retval.collisionNormal = copysignf(1, pDl - pDr);
+
+
 
 bool CollisionData::result() const
 {
