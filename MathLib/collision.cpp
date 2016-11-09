@@ -171,42 +171,70 @@ CollisionDataSwept planeBoxCollisionSwept(const Plane & P, const vec2 &Pvel,
 
 CollisionData HullCollision(const Hull & A, const Hull & B)
 {
-	int size = 0;
-	vec2 axes[32];
+
 	
 	// Combining all the axes into a single array
+	// This isn't necessary, but prevents duplicating
+	// the evaluation loop
+	int size = 0;
+	vec2 axes[32];
+
 	for (int j = 0; j < A.size; ++j) axes[size++] = A.normals[j];
 	for (int j = 0; j < B.size; ++j) axes[size++] = B.normals[j];
 
 
+	// Set up the return value
+	// Since we're looking for the smallest penetration depth
+	// along each axis, we can assume an infinitely large
+	// penetration depth and reduce it as we discover results.
+
 	CollisionData retval;
 	retval.penetrationDepth = INFINITY;
-	// For every axis,
+	
+
+
+	// This is the actual test- it's broken into two steps.
+		// Find the projected min/max of each volume.
+		// Determine their penetration depth.
+
+		// The smallest of all is the final result.
+
 	for (int j = 0; j < size; ++j)
 	{		
-		vec2 &axis = axes[j];
+		vec2 &axis = axes[j]; // cache the axis
+
+		/////////////////////
+		// Evaluate the extents
+		// Start with some obnoxious values and work our way in.
 		float amin = INFINITY, amax = -INFINITY;
 		float bmin = INFINITY, bmax = -INFINITY;
 		
-		// Find projected extents along the axis
+		// Loop through A's vertices and project the points.
 		for (int i = 0; i < A.size; ++i)
 		{
 			float proj = dot(axis, A.vertices[i]);
 			amin = fminf(proj, amin);
 			amax = fmaxf(proj, amax);
 		}
+
+		// Loop through B's vertices and project the points.
 		for (int i = 0; i < B.size; ++i)
 		{
 			float proj = dot(axis, B.vertices[i]);
 			bmin = fminf(proj, bmin);
 			bmax = fmaxf(proj, bmax);
 		}
-		// 1D SAT solution
+		
+		/////////////////////////
+		// Evaluation
+		// Determine the penetration depth
 		float pDr, pDl, pD, H;
 		pDr = amax - bmin;
 		pDl = bmax - amin;
 
 		pD = fminf(pDr, pDl);
+
+		// The direction along the axis
 		H  = copysignf(1, pDl - pDr);
 
 		// Pick the smallest one
@@ -216,7 +244,6 @@ CollisionData HullCollision(const Hull & A, const Hull & B)
 			retval.collisionNormal = axis * H;
 		}
 	}
-
 	return retval;
 }
 
