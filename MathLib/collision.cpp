@@ -168,20 +168,23 @@ CollisionDataSwept planeBoxCollisionSwept(const Plane & P, const vec2 &Pvel,
 }
 
 
+////////////////////////////////////////
+// Generalized SAT solution
 
+// Further Study
+// Consider the Swept Hull Test.
+	// If the velocities along an axis are 0, then use
+	// penetration depth along that axis (if fails, entry time is infinity)
 CollisionData HullCollision(const Hull & A, const Hull & B)
-{
-
-	
+{	
 	// Combining all the axes into a single array
 	// This isn't necessary, but prevents duplicating
 	// the evaluation loop
 	int size = 0;
-	vec2 axes[32];
+	vec2 axes[32]; // this should be a set
 
 	for (int j = 0; j < A.size; ++j) axes[size++] = A.normals[j];
 	for (int j = 0; j < B.size; ++j) axes[size++] = B.normals[j];
-
 
 	// Set up the return value
 	// Since we're looking for the smallest penetration depth
@@ -191,8 +194,6 @@ CollisionData HullCollision(const Hull & A, const Hull & B)
 	CollisionData retval;
 	retval.penetrationDepth = INFINITY;
 	
-
-
 	// This is the actual test- it's broken into two steps.
 		// Find the projected min/max of each volume.
 		// Determine their penetration depth.
@@ -207,24 +208,15 @@ CollisionData HullCollision(const Hull & A, const Hull & B)
 		// Evaluate the extents
 		// Start with some obnoxious values and work our way in.
 		float amin = INFINITY, amax = -INFINITY;
-		float bmin = INFINITY, bmax = -INFINITY;
-		
-		// Loop through A's vertices and project the points.
-		for (int i = 0; i < A.size; ++i)
-		{
-			float proj = dot(axis, A.vertices[i]);
-			amin = fminf(proj, amin);
-			amax = fmaxf(proj, amax);
-		}
+		float bmin = INFINITY, bmax = -INFINITY;	
 
-		// Loop through B's vertices and project the points.
-		for (int i = 0; i < B.size; ++i)
-		{
-			float proj = dot(axis, B.vertices[i]);
-			bmin = fminf(proj, bmin);
-			bmax = fmaxf(proj, bmax);
-		}
+		amin = A.min(axis);
+		amax = A.max(axis);
+
+		bmin = B.min(axis);
+		bmax = B.max(axis);
 		
+
 		/////////////////////////
 		// Evaluation
 		// Determine the penetration depth
@@ -248,14 +240,6 @@ CollisionData HullCollision(const Hull & A, const Hull & B)
 }
 
 
-CollisionData1D retval;
-
-//float pDr = Amax - Bmin;
-//float pDl = Bmax - Amin;
-//retval.penetrationDepth = fmin(pDr, pDl);
-//retval.collisionNormal = copysignf(1, pDl - pDr);
-
-
 
 bool CollisionData::result() const
 {
@@ -270,4 +254,21 @@ vec2 CollisionData::MTV() const
 bool CollisionDataSwept::result() const
 {
 	return entryTime >= 0 && entryTime <= 1 && collides;
+}
+
+
+CollisionData HullCollisionGroups(const Hull A[], unsigned asize, const Hull B[], unsigned bsize)
+{
+	CollisionData retval;
+	retval.penetrationDepth = INFINITY;
+	for(int i = 0; i < asize; ++i)
+		for (int j = 0; j < bsize; ++j)
+		{
+			CollisionData temp = HullCollision(A[i], B[j]);
+
+			if (temp.penetrationDepth < retval.penetrationDepth)
+				retval = temp;
+		}
+
+	return retval;
 }

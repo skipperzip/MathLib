@@ -57,6 +57,9 @@ struct Hull
 	vec2 normals[16];
 	unsigned int size;
 
+	float min(const vec2 &axis) const;
+	float max(const vec2 &axis) const;
+	
 	// assume a CW winding order.
 		// loop through every neighboring pair of vertices
 			// evaluate the normal of each pair (store it).

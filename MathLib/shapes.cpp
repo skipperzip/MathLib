@@ -1,4 +1,5 @@
 #include "shapes.h"
+#include <cmath>
 #include "flops.h"
 
 Circle operator*(const mat3 & T, const Circle & C)
@@ -106,6 +107,22 @@ Hull operator*(const mat3 & T, const Hull & H)
 		retval.normals[i]  = (T * vec3{ H.normals[i].x, H.normals[i].y, 0 }).xy;
 	}
 	return retval;
+}
+
+float Hull::min(const vec2 & axis) const
+{
+	float amin = INFINITY;
+	for (int i = 0; i < size; ++i)
+		amin = fminf(dot(axis, vertices[i]), amin);
+	return amin;
+}
+
+float Hull::max(const vec2 & axis) const
+{
+	float amax = -INFINITY;
+	for (int i = 0; i < size; ++i)
+		amax = fmaxf(dot(axis, vertices[i]), amax);
+	return amax;
 }
 
 Hull::Hull(const vec2 *a_vertices, unsigned a_size)

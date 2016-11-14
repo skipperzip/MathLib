@@ -8,23 +8,33 @@
 #include "SpaceshipRenderer.h"
 #include "shapedraw.h"
 #include "shapes.h"
-
+#include "collider.h"
 
 void main()
 {
 	float SCREEN_WIDTH = 1200, SCREEN_HEIGHT = 1200;
 	sfw::initContext(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	
+
 	Transform playerTransform(200, 200);
 	playerTransform.m_scale = vec2{ 20, 10 };
-	
+
 	Rigidbody playerRigidbody;
 	SpaceshipController playerCtrl;
 	SpaceshipLocomotion playerLoco;
 	SpaceshipRenderer playerRender;
 
+
+	//////////////////////
+	//// Setup the Collider!
+	vec2 hullVrts[] = {{ 0, 2 }, { -1,-1 },
+					 { 1,-1 }, { 0, -2 } };	
+	Collider playerCollider(hullVrts, 4);
+
+
 	Transform cameraTransform;
+
+	
 
 	while (sfw::stepContext())
 	{
@@ -35,20 +45,16 @@ void main()
 		playerRigidbody.integrate(playerTransform, deltaTime);
 
 
-		cameraTransform.m_position
-			= lerp(cameraTransform.m_position,
-				playerTransform.getGlobalPosition(),
-				sfw::getDeltaTime() * 10);
-
-
 		//////////////////////////////////////////////////////////////
-		////////////// Rendering Stuff
-
+		////////////// Setup the Camera!
+		cameraTransform.m_position = playerTransform.getGlobalPosition();
+		
 		mat3 proj = translate(600, 600) * scale(2, 2);
 		mat3 view = inverse(cameraTransform.getGlobalTransform());
 		mat3 camera = proj * view;
 
-
+		////////////////////
+		/// Draw the Player!
 		playerRender.draw(camera, playerTransform);
 
 
@@ -59,17 +65,8 @@ void main()
 		playerTransform.debugDraw(camera);
 		playerRigidbody.debugDraw(camera, playerTransform);
 
-
-
-		//////////////////////////
-		///// Test Drawing
-		drawAABB(camera
-			* playerTransform.getGlobalTransform()
-			* AABB { 0, 0, 1, 2 }, RED);
-
-		drawPlane(camera
-			* playerTransform.getGlobalTransform()
-			* Plane { 0, 0, 0, 1 }, WHITE);
+		// Draw the Collider!
+		playerCollider.DebugDraw(camera, playerTransform);
 	}
 	sfw::termContext();
 }
