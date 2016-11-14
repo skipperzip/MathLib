@@ -32,14 +32,16 @@ CollisionData ColliderCollision(const Transform & AT, const Collider & AC,
 {
 	CollisionData retval;
 
+	// very fast test helps us determine if something more complex
+	// is needed
 	retval = boxCollision(AT.getGlobalTransform() * AC.box,
 						  BT.getGlobalTransform() * BC.box);
 
 	// It's likely there is a collision
+	// So we can use a more expensive evaluation
 	if(retval.penetrationDepth >= 0)
 		retval = HullCollision(AT.getGlobalTransform() * AC.hull,
 							   BT.getGlobalTransform() * BC.hull);
 
 	return retval;
 }
-

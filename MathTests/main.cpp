@@ -292,13 +292,12 @@ int main()
 	assert(fequals(HullCollision(myHull,otherHull).penetrationDepth,  0));
 	assert(fequals(HullCollision(otherHull, tHull).penetrationDepth, -1));
 
-}
+	vec2 I     = vec2{ -1, -1 }; // incident vector
+	vec2 xaxis = vec2{  1,  0 }; // normal
+	vec2 Ref   = vec2{  1, -1 }; //desired result
+	
+	assert(project(I, xaxis) == -xaxis);
+	assert(reflect(I, xaxis) == Ref);
 
-/*
-T     A     B
-0  : 0,0 : 10,0
-1  : 1,0 :  9,0
-2  : 2,0 :  8,0
-3  : 3,0 :  7,0
-4  : 4,0 :  6,0  >> Touching at 5, 0
-*/
+	// reflect(velocity, normal)
+}

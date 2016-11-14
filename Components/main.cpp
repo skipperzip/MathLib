@@ -10,6 +10,8 @@
 #include "shapes.h"
 #include "collider.h"
 
+#include <cstdio>
+
 void main()
 {
 	float SCREEN_WIDTH = 1200, SCREEN_HEIGHT = 1200;
@@ -24,7 +26,6 @@ void main()
 	SpaceshipLocomotion playerLoco;
 	SpaceshipRenderer playerRender;
 
-
 	//////////////////////
 	//// Setup the Collider!
 	vec2 hullVrts[] = { { 0, 3 },
@@ -32,11 +33,11 @@ void main()
 					    { 2,-3 } };	
 	Collider playerCollider(hullVrts, 3);
 
-
-	Transform cameraTransform;
-
+	Transform occluderTransform(0,0);
+	occluderTransform.m_scale = vec2{ 8,8 };
+	Collider occluderCollider(hullVrts, 3);
 	
-
+	Transform cameraTransform;
 	while (sfw::stepContext())
 	{
 		float deltaTime = sfw::getDeltaTime();
@@ -45,6 +46,26 @@ void main()
 		playerCtrl.update(playerLoco);
 		playerLoco.update(playerTransform, playerRigidbody);
 		playerRigidbody.integrate(playerTransform, deltaTime);
+		
+		
+		CollisionData results =  ColliderCollision(playerTransform, playerCollider,
+												   occluderTransform, occluderCollider);
+		
+		// If there is overlap, time to resolve!
+		if (results.penetrationDepth >= 0)
+		{
+			// Correction
+				// Get the shapes to state that is no longer overlapping.
+			vec2 MTV = results.penetrationDepth * results.collisionNormal;
+			playerTransform.m_position -= MTV;
+
+			// Resolution
+				// Resolve the change in velocities between the objects.
+			playerRigidbody.velocity = reflect(playerRigidbody.velocity, results.collisionNormal);
+		}
+		
+		
+		//printf("%f : %f, %f\n", results.penetrationDepth, results.collisionNormal.x, results.collisionNormal.y);
 
 		// Camera setup
 		cameraTransform.m_position = playerTransform.getGlobalPosition();		
@@ -53,18 +74,14 @@ void main()
 		mat3 camera = proj * view;
 
 		// debug drawing stuff
+		occluderTransform.debugDraw(camera);
+		occluderCollider.DebugDraw(camera, occluderTransform);
+
 		playerTransform.debugDraw(camera);
 		playerRigidbody.debugDraw(camera, playerTransform);
 		playerCollider.DebugDraw(camera, playerTransform);
+
+	
 	}
 	sfw::termContext();
 }
-
-/*
-class Player
-{
-	Transform transform;
-	Rigidbody rigidbody;
-	Collider  collider;
-};
-*/

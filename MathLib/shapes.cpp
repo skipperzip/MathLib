@@ -104,7 +104,7 @@ Hull operator*(const mat3 & T, const Hull & H)
 		retval.vertices[i] = (T * vec3{ H.vertices[i].x, H.vertices[i].y, 1 }).xy;
 
 		// directions need a 0 in the z
-		retval.normals[i]  = (T * vec3{ H.normals[i].x, H.normals[i].y, 0 }).xy;
+		retval.normals[i]  = normal((T * vec3{ H.normals[i].x, H.normals[i].y, 0 }).xy);
 	}
 	return retval;
 }
