@@ -17,7 +17,7 @@ void main()
 
 
 	Transform playerTransform(200, 200);
-	playerTransform.m_scale = vec2{ 20, 10 };
+	playerTransform.m_scale = vec2{ 10, 10 };
 
 	Rigidbody playerRigidbody;
 	SpaceshipController playerCtrl;
@@ -27,9 +27,10 @@ void main()
 
 	//////////////////////
 	//// Setup the Collider!
-	vec2 hullVrts[] = {{ 0, 2 }, { -1,-1 },
-					 { 1,-1 }, { 0, -2 } };	
-	Collider playerCollider(hullVrts, 4);
+	vec2 hullVrts[] = { { 0, 3 },
+						{-2,-3 },
+					    { 2,-3 } };	
+	Collider playerCollider(hullVrts, 3);
 
 
 	Transform cameraTransform;
@@ -40,33 +41,30 @@ void main()
 	{
 		float deltaTime = sfw::getDeltaTime();
 
+		// Logic
 		playerCtrl.update(playerLoco);
 		playerLoco.update(playerTransform, playerRigidbody);
 		playerRigidbody.integrate(playerTransform, deltaTime);
 
-
-		//////////////////////////////////////////////////////////////
-		////////////// Setup the Camera!
-		cameraTransform.m_position = playerTransform.getGlobalPosition();
-		
+		// Camera setup
+		cameraTransform.m_position = playerTransform.getGlobalPosition();		
 		mat3 proj = translate(600, 600) * scale(2, 2);
 		mat3 view = inverse(cameraTransform.getGlobalTransform());
 		mat3 camera = proj * view;
 
-		////////////////////
-		/// Draw the Player!
-		playerRender.draw(camera, playerTransform);
-
-
-		///////////////////////
-		///// Debug Drawing
-		cameraTransform.debugDraw(camera);
-
+		// debug drawing stuff
 		playerTransform.debugDraw(camera);
 		playerRigidbody.debugDraw(camera, playerTransform);
-
-		// Draw the Collider!
 		playerCollider.DebugDraw(camera, playerTransform);
 	}
 	sfw::termContext();
 }
+
+/*
+class Player
+{
+	Transform transform;
+	Rigidbody rigidbody;
+	Collider  collider;
+};
+*/

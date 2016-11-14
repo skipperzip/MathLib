@@ -24,14 +24,29 @@ void drawPlane(const Plane & P, unsigned color)
 	sfw::drawCircle(P.pos.x, P.pos.y, 12, 12, color);
 
 	sfw::drawLine(P.pos.x, P.pos.y,
-				  P.pos.x+P.dir.x*10, P.pos.y + P.dir.y*10, color);
+		P.pos.x + P.dir.x * 10, P.pos.y + P.dir.y * 10, color);
 
-	vec2 left  = perp(P.dir);
+	vec2 left = perp(P.dir);
 	vec2 right = -perp(P.dir);
-	
-	sfw::drawLine(P.pos.x, P.pos.y,		
+
+	sfw::drawLine(P.pos.x, P.pos.y,
 		P.pos.x + left.x * 120, P.pos.y + left.y * 120, color);
 
 	sfw::drawLine(P.pos.x, P.pos.y,
 		P.pos.x + right.x * 120, P.pos.y + right.y * 120, color);
+}
+
+
+void drawHull(const Hull &H, unsigned color)
+{
+	// loop through each pair of neighboring vertices
+	// and draw a line between them.
+	
+	// Loop is setup the same way as the Hull constructor
+	for (int i = 0; i < H.size && i < 16; ++i)
+	{	
+		sfw::drawLine(H.vertices[i].x, H.vertices[i].y,
+				      H.vertices[(i + 1) % H.size].x,
+					  H.vertices[(i + 1) % H.size].y, color);
+	}	
 }

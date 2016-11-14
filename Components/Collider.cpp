@@ -1,25 +1,45 @@
 #include "Collider.h"
 #include "shapedraw.h"
+#include <cmath>
 
 Collider::Collider(const vec2 * verts, int size)
 				: hull(verts,size)
 {
-	/* Determine the AABB properties.
-		Min = Find the smallest X and Y among verts.
-		Max = Find the largest X and Y among verts.
-		
-		pos = (Min + Max)/2
-		dim = (Max - Min)/2
-	*/
+	vec2 boxMin = { INFINITY,  INFINITY},
+		 boxMax = {-INFINITY, -INFINITY};
 
-	box = { {0,0},{3,3} };
+	for (int i = 0; i < size; ++i)
+	{
+		boxMin = min(boxMin, verts[i]);
+		boxMax = max(boxMax, verts[i]);
+	}
+
+	box.pos = (boxMin + boxMax) / 2;
+	box.he  = (boxMax - boxMin) / 2;
 }
 
 void Collider::DebugDraw(const mat3 & T,
 							const Transform & trans)
 {
-	drawAABB(T * trans.getGlobalTransform() * box, 0x888888ff);
+	mat3 glob = T * trans.getGlobalTransform();
 
-	// Draw the convex hull!
-		// You'll need a drawing function for hulls!
+	drawAABB(glob * box , 0x888888ff);
+	drawHull(glob * hull, 0x888888ff);
 }
+
+CollisionData ColliderCollision(const Transform & AT, const Collider & AC,
+								const Transform & BT, const Collider & BC)
+{
+	CollisionData retval;
+
+	retval = boxCollision(AT.getGlobalTransform() * AC.box,
+						  BT.getGlobalTransform() * BC.box);
+
+	// It's likely there is a collision
+	if(retval.penetrationDepth >= 0)
+		retval = HullCollision(AT.getGlobalTransform() * AC.hull,
+							   BT.getGlobalTransform() * BC.hull);
+
+	return retval;
+}
+
