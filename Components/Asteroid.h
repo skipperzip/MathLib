@@ -10,6 +10,7 @@ public:
 	Transform			transform;
 	Collider			collider;
 	Rigidbody			rigidbody;
+	//bool isAlive;
 
 	Asteroid();
 

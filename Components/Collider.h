@@ -12,6 +12,7 @@ public:
 
 	Collider();
 	Collider(const vec2 *verts, int size);
+
 	void DebugDraw(const mat3 &T, const Transform &trans);
 };
 

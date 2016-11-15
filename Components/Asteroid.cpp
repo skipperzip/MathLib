@@ -5,7 +5,7 @@ Asteroid::Asteroid()
 	vec2 hullVrts[] = { { -1, 0 },{ 0,1 },{ 1,0 } };
 	collider = Collider(hullVrts, 3);
 
-	transform.m_scale = vec2{ 4,4 };
+	transform.m_scale = vec2{ 12,12 };
 	rigidbody.drag = 0.0f;
 	rigidbody.angularDrag = 0.0f;
 	rigidbody.mass = 10;
