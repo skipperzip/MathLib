@@ -12,7 +12,7 @@ class PlayerShip
 public:
 	Transform			transform;
 	Collider			collider;
-	Rigidbody			rigidbody;
+	Rigidbody			rigidbody;	
 	SpaceshipController controller;
 	SpaceshipLocomotion locomotion;
 

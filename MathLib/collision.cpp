@@ -257,6 +257,8 @@ bool CollisionDataSwept::result() const
 }
 
 
+
+
 CollisionData HullCollisionGroups(const Hull A[], unsigned asize, const Hull B[], unsigned bsize)
 {
 	CollisionData retval;

@@ -101,3 +101,7 @@ CollisionData HullCollision(const Hull &A, const Hull &B);
 		if(currentResult.penetrationDepth < bestResult.penetrationDepth)
 			bestResult = currentResult;
 	*/
+
+
+
+CollisionData HullCollisionGroups(const Hull A[], unsigned asize, const Hull B[], unsigned bsize);
