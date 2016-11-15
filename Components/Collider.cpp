@@ -2,6 +2,10 @@
 #include "shapedraw.h"
 #include <cmath>
 
+Collider::Collider()
+{
+}
+
 Collider::Collider(const vec2 * verts, int size)
 				: hull(verts,size)
 {
