@@ -17,14 +17,21 @@ void PlayerShip::update(float deltaTime, GameState &gs)
 
 	rigidbody.integrate(transform, deltaTime);
 
+	// Ideally you make a function in a bullet manager or the game state
+	// which creates the bullets automatically based on parameters.
+	// This solution is kind of hacky!
+
+	// Tractor beam spawning example!
 	if (sfw::getKey('T'))
 	{
-		gs.tractor.isAlive = true;
+		gs.tractor.isAlive = true; // reset the beam
 		gs.tractor.oneFrame = false;
+		// have it look where we are looking
 		gs.tractor.transform.m_position = transform.m_position;
 		gs.tractor.transform.m_facing = transform.m_facing;
 	}
 
+	// Bullet spawning Example!
 	if (sfw::getKey('F') && !gs.bullet.isAlive)
 	{
 		// bring it to life

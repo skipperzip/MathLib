@@ -22,32 +22,44 @@ void AsteroidCollision(Asteroid & as1, Asteroid & as2)
 
 void BulletAsteroidCollision(GravBullet &b, Asteroid &a)
 {
+	// make sure the bullet is active!
 	if (!b.isAlive) return;
 
+	// Use dynamic resolution, so the bullet bumps stuff away.
 	CollisionData result = 
 		DynamicResolution(b.transform, b.rigidbody, b.collider,
 					  a.transform, a.rigidbody, a.collider);
 
+	
 	if(result.penetrationDepth >= 0)
 	{
+		//Reset the timer on the bullet to 0. This allows us
+		//to shoot it again (From player's update).
 		b.timer = 0;
 	}
 }
 
+
 void TractorAsteroidCollision(TractorBeam & tractor, Asteroid & asteroid)
 {
+	// Make sure the tractor is active!
 	if (!tractor.isAlive) return;
 
+	// We don't use resolution-- the tractor is non-physical!
+	// Just want to know if the asteroid is in the beam.
 	CollisionData result =
 				ColliderCollision(tractor.transform, tractor.collider,
 						asteroid.transform, asteroid.collider);
 
+	// if it is
 	if (result.penetrationDepth >= 0)
 	{
+		// find the direction between
 		vec2 dir = normal(tractor.transform.getGlobalPosition()-
 						  asteroid.transform.getGlobalPosition());
-
+		// and add a force to pull the objet toward us.
 		asteroid.rigidbody.addForce(dir * 500);
+		// If we flip the force, we can push stuff away.
 	}
 }
 

@@ -2,6 +2,7 @@
 
 TractorBeam::TractorBeam()
 {
+	// shape of the tractor beam
 	vec2 hullVrts[] = { { .1f,.3f },{-.1f,.3f},{ -4.f,6.f },{ 4.f,6.f } };
 	collider = Collider(hullVrts, 4);
 
@@ -12,11 +13,12 @@ TractorBeam::TractorBeam()
 
 void TractorBeam::update(float deltaTime, GameState & gs)
 {
-	// We need to disable the tractor beam, but we want it to work
-	// for ONE frame.
-	// So we can't disable the tractor beam here right away.
-	// Instead, we'll use a boolean to act as a gate to ensure we last
-	// one frame.
+	// This a 'logic gate' to ensure that the bullet stays
+	// alive for at LEAST one frame.
+	// If the player holds the button down, we want to make
+	// sure isAlive is true and oneFrame is false.
+
+	// See the player's update function to see how it is spawned!
 	if (oneFrame)
 	{
 		isAlive = false;

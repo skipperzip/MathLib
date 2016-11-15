@@ -12,6 +12,12 @@ GravBullet::GravBullet()
 
 void GravBullet::update(float deltaTime, GameState & gs)
 {
+	// The timer always counts down- if it dies, then we 
+	// don't update or draw. If we don't do these things,
+	// nobody even knows it exists.
+
+	// When the bullet spawns, the timer can be set
+	// along with a velocity and position (player update).
 	timer -= deltaTime;
 	isAlive = timer > 0;
 	

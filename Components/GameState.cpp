@@ -37,15 +37,19 @@ void GameState::update(float deltaTime)
 	for (int i = 0; i < 2; ++i)
 		PlayerAsteroidCollision(player, asteroid[i]);
 
+
+	for (int i = 0; i < 2 - 1; ++i)
+		for (int j = i + 1; j < 2; ++j)
+			AsteroidCollision(asteroid[i], asteroid[j]);
+
+
+
 	for (int i = 0; i < 2; ++i)
 		BulletAsteroidCollision(bullet , asteroid[i]);
 	
 	for (int i = 0; i < 2; ++i)
 		TractorAsteroidCollision(tractor, asteroid[i]);
 
-	for (int i = 0; i < 2-1; ++i)
-		for(int j = i+1; j < 2; ++j)
-			AsteroidCollision(asteroid[i], asteroid[j]);
 
 
 }
