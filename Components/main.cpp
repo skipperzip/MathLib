@@ -36,6 +36,7 @@ void main()
 	Transform occluderTransform(0,0);
 	occluderTransform.m_scale = vec2{ 8,8 };
 	Collider occluderCollider(hullVrts, 3);
+	Rigidbody occluderRigidbody;			// *********************************
 	
 	Transform cameraTransform;
 	while (sfw::stepContext())
@@ -47,23 +48,15 @@ void main()
 		playerLoco.update(playerTransform, playerRigidbody);
 		playerRigidbody.integrate(playerTransform, deltaTime);
 		
+		occluderRigidbody.integrate(occluderTransform, deltaTime); //**************
 		
-		CollisionData results =  ColliderCollision(playerTransform, playerCollider,
-												   occluderTransform, occluderCollider);
+		//StaticResolution(playerTransform, playerRigidbody, playerCollider,
+			//					occluderTransform, occluderCollider);
 		
-		// If there is overlap, time to resolve!
-		if (results.penetrationDepth >= 0)
-		{
-			// Correction
-				// Get the shapes to state that is no longer overlapping.
-			vec2 MTV = results.penetrationDepth * results.collisionNormal;
-			playerTransform.m_position -= MTV;
+		////*********************************************************
+		DynamicResolution(playerTransform, playerRigidbody,   playerCollider,
+			              occluderTransform, occluderRigidbody, occluderCollider);
 
-			// Resolution
-				// Resolve the change in velocities between the objects.
-			playerRigidbody.velocity = reflect(playerRigidbody.velocity, results.collisionNormal);
-		}
-		
 		
 		//printf("%f : %f, %f\n", results.penetrationDepth, results.collisionNormal.x, results.collisionNormal.y);
 
@@ -76,12 +69,22 @@ void main()
 		// debug drawing stuff
 		occluderTransform.debugDraw(camera);
 		occluderCollider.DebugDraw(camera, occluderTransform);
+		occluderRigidbody.debugDraw(camera, occluderTransform);
 
 		playerTransform.debugDraw(camera);
 		playerRigidbody.debugDraw(camera, playerTransform);
 		playerCollider.DebugDraw(camera, playerTransform);
 
 	
+
+		/*
+			paddle1.update(deltaTime);
+			paddle2.update(deltaTime);
+			ball.update(deltaTime);
+
+			paddleCollision(paddle1, ball);
+			paddleCollision(paddle2, ball);		
+		*/
 	}
 	sfw::termContext();
 }
