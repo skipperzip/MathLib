@@ -1,0 +1,8 @@
+The goal of my production was to create AI that would chase the player.
+
+The main problem with this was my Vec2 library didn't have the proper constructors that could convert the floats to Vec2 (for some reason).
+After making it the AI was actually quite simple.
+
+The AI is not very smart and it just sort of aggressively chases the player and rushes past them quite often.
+Watching them is pretty fun though so I added a changable camera so you can watch them.
+Pressing 1, 2, or 3 will change the camera.
