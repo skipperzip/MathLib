@@ -1,7 +1,18 @@
 #include "vec3.h"
 #include <cmath>
 #include "flops.h"
-
+vec3::vec3()
+{
+	x = 0;
+	y = 0;
+	z = 0;
+}
+vec3::vec3(float NewX, float NewY, float NewZ)
+{
+	x = NewX;
+	y = NewY;
+	z = NewZ;
+}
 float angleBetween(const vec3 & lhs, const vec3 & rhs)
 {
 	return acos(dot(normal(lhs), normal(rhs)));

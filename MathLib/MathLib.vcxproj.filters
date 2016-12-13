@@ -38,13 +38,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="vec2.cpp">
+    <ClCompile Include="collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="flops.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vec3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mat2.cpp">
@@ -56,7 +53,10 @@
     <ClCompile Include="shapes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="collision.cpp">
+    <ClCompile Include="vec2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vec3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

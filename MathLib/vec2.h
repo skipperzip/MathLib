@@ -8,7 +8,8 @@ union vec2
 	{
 		float x, y;
 	};
-
+	vec2();
+	vec2(float, float);
 	float  operator[](unsigned idx) const;
 	float &operator[](unsigned idx);
 };

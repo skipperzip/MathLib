@@ -1,6 +1,21 @@
 #include "mat2.h"
 #include "flops.h"
 
+mat2::mat2()
+{
+	m[0] = 0;
+	m[1] = 0;
+	m[2] = 0;
+	m[3] = 0;
+}
+mat2::mat2(float a, float b, float c, float d)
+{
+	m[0] = a;
+	m[1] = b;
+	m[2] = c;
+	m[3] = d;
+}
+
 bool operator==(const mat2 & A, const mat2 & B)
 {
 	return A[0] == B[0] && A[1] == B[1];

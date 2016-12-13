@@ -13,7 +13,8 @@ union mat2
 	float m[4];      // single dimensional array
 	float mm[2][2];  // multidimensional array
 	vec2  c[2];      // column vectors
-
+	mat2();
+	mat2(float, float, float, float);
 	vec2  operator[](unsigned idx) const;
 	vec2 &operator[](unsigned idx);
 };

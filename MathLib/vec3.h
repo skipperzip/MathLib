@@ -6,7 +6,8 @@ union vec3
 	float v[3];
 	struct { float x, y, z; };
 	vec2 xy; // { float x, y; }
-
+	vec3();
+	vec3(float, float, float);
 	float  operator[](unsigned idx) const;
 	float &operator[](unsigned idx);
 

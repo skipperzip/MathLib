@@ -9,10 +9,11 @@
 **/
 union mat3
 {
+	mat3();
+	mat3(float, float, float, float, float, float, float , float, float);
 	float m[9];      // single dimensional array
 	float mm[3][3];  // multidimensional array
 	vec3  c[3];      // column vectors
-
 	vec3 operator[](unsigned idx) const;
 	vec3 &operator[](unsigned idx);
 };

@@ -2,6 +2,19 @@
 #include <cmath>
 #include "flops.h"
 
+vec2::vec2()
+{
+	x = 0;
+	y = 0;
+}
+vec2::vec2(float NewX, float NewY)
+{
+	x = NewX;
+	y = NewY;
+}
+
+
+
 vec2 operator+(const vec2 & lhs, const vec2 & rhs)
 {
 	return vec2{lhs.x + rhs.x, lhs.y + rhs.y};

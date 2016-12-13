@@ -1,5 +1,32 @@
 #include "mat3.h"
 
+mat3::mat3()
+{
+	m[0] = 0;
+	m[1] = 0;
+	m[2] = 0;
+	m[3] = 0;
+	m[4] = 0;
+	m[5] = 0;
+	m[6] = 0;
+	m[7] = 0;
+	m[8] = 0;
+}
+mat3::mat3(float a, float b, float c, float d, float e, float f, float g, float h, float i)
+{
+	m[0] = a;
+	m[1] = b;
+	m[2] = c;
+	m[3] = d;
+	m[4] = e;
+	m[5] = f;
+	m[6] = g;
+	m[7] = h;
+	m[8] = i;
+}
+
+
+
 vec3 mat3::operator[](unsigned idx) const
 {
 	return c[idx];
